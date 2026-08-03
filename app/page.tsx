@@ -11,11 +11,13 @@ import {
 import { academy, events, faculty, programs } from "./data";
 import { ButtonLink, CTA, SectionHeading } from "./components/ui";
 import { GalleryExperience } from "./components/gallery-experience";
+import { LineageGrowth } from "./components/lineage-growth";
 
 export default function Home() {
   return (
     <>
-      <section className="home-hero">
+      <LineageGrowth />
+      {false && <section className="home-hero">
         <div className="hero-media" data-parallax>
           <Image
             src="/images/gallery7.jpeg"
@@ -48,7 +50,7 @@ export default function Home() {
           <ArrowDown />
           <span>Scroll to discover</span>
         </a>
-      </section>
+      </section>}
 
       <section id="introduction" className="intro-section section-shell">
         <div className="intro-number" aria-hidden="true">03</div>
