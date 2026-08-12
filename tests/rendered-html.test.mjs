@@ -1,91 +1,48 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
-
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-}
-
-test("server-renders the starter loading skeleton", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
-});
-
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
+test("keeps navigation, motion, and imagery production-ready", async () => {
+  const [frame, css, data] = await Promise.all([
+    readFile(new URL("../app/components/site-frame.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/data.ts", import.meta.url), "utf8"),
   ]);
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
-
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
+  assert.match(frame, /aria-label="Primary navigation"/);
+  assert.match(frame, /aria-current=/);
+  assert.match(frame, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /@media \(max-width:\s*620px\)/);
+  assert.match(css, /100dvh/);
+  assert.match(css, /touch-action:\s*manipulation/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
+  assert.match(data, /Bharatanatyam/);
+  assert.match(data, /Kuchipudi/);
+  assert.match(data, /Sangeetham/);
 
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
+  await Promise.all([
+    access(new URL("../public/academy/hero/single-dancer-charcoal-bronze-v3-tight.webp", import.meta.url)),
+    access(new URL("../public/academy/hero/trio-dancer-1-real-dark-v3.webp", import.meta.url)),
+    access(new URL("../public/academy/programs/bharatnatyam.webp", import.meta.url)),
+    access(new URL("../public/academy/faculty/rama-devi.webp", import.meta.url)),
+    access(new URL("../public/academy/gallery/gallery-25.webp", import.meta.url)),
+  ]);
+});
 
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+test("contains complete public routes and durable CRUD administration", async () => {
+  const routeFiles = ["page.tsx", "about/page.tsx", "programs/page.tsx", "faculty/page.tsx", "gallery/page.tsx", "events/page.tsx", "testimonials/page.tsx", "contact/page.tsx", "admissions/page.tsx", "admin/page.tsx", "fullyeditmode/page.tsx", "[slug]/page.tsx"];
+  await Promise.all(routeFiles.map((route) => access(new URL(`../app/${route}`, import.meta.url))));
+  const [admin, visualEditor, contentApi, mediaApi, schema, hosting] = await Promise.all([
+    readFile(new URL("../app/admin/admin-editor.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/fullyeditmode/visual-editor.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/content/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/media/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../db/schema.ts", import.meta.url), "utf8"),
+    readFile(new URL("../.openai/hosting.json", import.meta.url), "utf8"),
+  ]);
+  assert.match(admin, /Add program/); assert.match(admin, /Delete/); assert.match(admin, /Replace/); assert.match(admin, /Save changes/);
+  assert.match(visualEditor, /Add section/); assert.match(visualEditor, /Add link/); assert.match(visualEditor, /Delete page/); assert.match(visualEditor, /Publish changes/);
+  assert.match(contentApi, /export async function PUT/); assert.match(mediaApi, /export async function POST/);
+  assert.match(schema, /siteContent/); assert.match(schema, /mediaAssets/);
+  assert.match(hosting, /"d1": "DB"/); assert.match(hosting, /"r2": "MEDIA"/);
 });

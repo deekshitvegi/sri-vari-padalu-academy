@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
-import { galleryImages } from "../data";
+import type { GalleryImage } from "../data";
 
 const filters = ["all", "landscape", "portrait", "square"] as const;
 
-export function GalleryExperience({ compact = false }: { compact?: boolean }) {
+export function GalleryExperience({ compact = false, galleryImages }: { compact?: boolean; galleryImages: GalleryImage[] }) {
   const [filter, setFilter] = useState<(typeof filters)[number]>("all");
   const [active, setActive] = useState<number | null>(null);
   const images = galleryImages
@@ -60,6 +60,7 @@ export function GalleryExperience({ compact = false }: { compact?: boolean }) {
               alt={image.alt}
               fill
               sizes={compact ? "(max-width: 700px) 50vw, 33vw" : "(max-width: 700px) 100vw, 33vw"}
+              unoptimized
             />
             <span className="gallery-overlay">
               <small>{String(index + 1).padStart(2, "0")}</small>
@@ -81,7 +82,7 @@ export function GalleryExperience({ compact = false }: { compact?: boolean }) {
             <ChevronLeft />
           </button>
           <div className="lightbox-image">
-            <Image src={images[active].src} alt={images[active].alt} fill sizes="95vw" />
+            <Image src={images[active].src} alt={images[active].alt} fill sizes="95vw" unoptimized />
           </div>
           <button
             className="lightbox-next"

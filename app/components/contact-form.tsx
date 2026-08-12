@@ -2,9 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { academy } from "../data";
+import type { AcademyDetails } from "../data";
 
-export function ContactForm() {
+export function ContactForm({ academy }: { academy: AcademyDetails }) {
   const [prepared, setPrepared] = useState(false);
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -19,7 +19,7 @@ export function ContactForm() {
   }
 
   return (
-    <form className="contact-form glass" onSubmit={submit}>
+    <form className="contact-form liquid-glass" onSubmit={submit}>
       <div className="field-grid">
         <label>
           <span>Your name</span>
