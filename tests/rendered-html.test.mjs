@@ -32,17 +32,19 @@ test("keeps navigation, motion, and imagery production-ready", async () => {
 test("contains complete public routes and durable CRUD administration", async () => {
   const routeFiles = ["page.tsx", "about/page.tsx", "programs/page.tsx", "faculty/page.tsx", "gallery/page.tsx", "events/page.tsx", "testimonials/page.tsx", "contact/page.tsx", "admissions/page.tsx", "admin/page.tsx", "fullyeditmode/page.tsx", "[slug]/page.tsx"];
   await Promise.all(routeFiles.map((route) => access(new URL(`../app/${route}`, import.meta.url))));
-  const [admin, visualEditor, contentApi, mediaApi, schema, hosting] = await Promise.all([
+  const [admin, visualEditor, contentApi, fullContentApi, mediaApi, schema, hosting] = await Promise.all([
     readFile(new URL("../app/admin/admin-editor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/fullyeditmode/visual-editor.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/api/content/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/full-content/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/media/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../db/schema.ts", import.meta.url), "utf8"),
     readFile(new URL("../.openai/hosting.json", import.meta.url), "utf8"),
   ]);
   assert.match(admin, /Add program/); assert.match(admin, /Delete/); assert.match(admin, /Replace/); assert.match(admin, /Save changes/);
+  assert.doesNotMatch(admin, /Full design mode|Open full design mode|href="\/fullyeditmode"/);
   assert.match(visualEditor, /Add section/); assert.match(visualEditor, /Add link/); assert.match(visualEditor, /Delete page/); assert.match(visualEditor, /Publish changes/);
-  assert.match(contentApi, /export async function PUT/); assert.match(mediaApi, /export async function POST/);
+  assert.match(contentApi, /export async function PUT/); assert.match(contentApi, /managedPages: current\.managedPages/); assert.match(fullContentApi, /requireOwnerApi/); assert.match(mediaApi, /export async function POST/);
   assert.match(schema, /siteContent/); assert.match(schema, /mediaAssets/);
   assert.match(hosting, /"d1": "DB"/); assert.match(hosting, /"r2": "MEDIA"/);
 });

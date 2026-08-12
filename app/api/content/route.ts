@@ -21,8 +21,16 @@ export async function PUT(request: Request) {
     if (!payload.content || !payload.content.academy || !Array.isArray(payload.content.programs)) {
       return Response.json({ error: "Invalid website content." }, { status: 400 });
     }
-    await saveSiteContent(payload.content, admin.email);
-    return Response.json({ content: payload.content });
+    const current = await getSiteContent();
+    const safeContent: SiteContent = {
+      ...payload.content,
+      navigation: current.navigation,
+      header: current.header,
+      footer: current.footer,
+      managedPages: current.managedPages,
+    };
+    await saveSiteContent(safeContent, admin.email);
+    return Response.json({ content: safeContent });
   } catch (error) {
     if (error instanceof Response) return error;
     return Response.json({ error: error instanceof Error ? error.message : "Unable to save content." }, { status: 500 });

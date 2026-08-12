@@ -101,7 +101,7 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
       <aside className="admin-sidebar">
         <div className="admin-brand"><span>SVP</span><div><strong>Website admin</strong><small>{adminName}</small></div></div>
         <nav aria-label="Admin areas">{groups.map((group) => <button key={group.id} className={activeGroup === group.id ? "active" : ""} onClick={() => setSection(sections.find((item) => item.group === group.id)!.id)}><strong>{group.label}</strong><small>{group.description}</small></button>)}</nav>
-        <div className="admin-sidebar-links"><Link href="/fullyeditmode"><ExternalLink /> Full design mode</Link><Link href="/"><ArrowLeft /> View website</Link>{!local && <Link href="/signout-with-chatgpt?return_to=/"><LogOut /> Sign out</Link>}</div>
+        <div className="admin-sidebar-links"><Link href="/"><ArrowLeft /> View website</Link>{!local && <Link href="/signout-with-chatgpt?return_to=/"><LogOut /> Sign out</Link>}</div>
       </aside>
       <main className="admin-main">
         <header className="admin-toolbar">
@@ -111,8 +111,6 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
         <nav className="admin-subtabs" aria-label="Current admin area">{sections.filter((item) => item.group === activeGroup).map((item) => <button key={item.id} className={section === item.id ? "active" : ""} onClick={() => setSection(item.id)}>{item.label}</button>)}</nav>
         {message && <p className={`admin-message ${dirty ? "error" : ""}`} role="status">{message}</p>}
         {local && <p className="admin-local-note">Local admin mode is active. The deployed admin is protected by sign-in and can be restricted with <strong>ADMIN_EMAILS</strong>.</p>}
-        {section === "overview" && <div className="admin-builder-callout"><div><p>Need to change the layout?</p><h2>Move sections, create pages, and edit the header without code.</h2></div><Link href="/fullyeditmode">Open full design mode <ExternalLink /></Link></div>}
-
         {section === "overview" && <AdminSection title="Academy identity and contact" copy="These details appear throughout the site, including the header, footer, contact page, and call-to-action links.">
           <FieldGrid>
             <Field label="Academy name" value={content.academy.name} onChange={(value) => update((draft) => { draft.academy.name = value; })} />
