@@ -49,6 +49,15 @@ export type AcademyEvent = {
   type: string;
 };
 
+export type AcademyVideo = {
+  id: string;
+  title: string;
+  url: string;
+  description: string;
+  kind: "performance" | "livestream";
+  published: boolean;
+};
+
 export type GalleryImage = {
   id: string;
   src: string;
@@ -150,6 +159,8 @@ export type SiteContent = {
   classTimings: ClassTiming[];
   events: AcademyEvent[];
   galleryImages: GalleryImage[];
+  videos: AcademyVideo[];
+  youtubeChannelId: string;
   stories: StoryChapter[];
 };
 
@@ -232,7 +243,7 @@ export const defaultSiteContent: SiteContent = {
   ] },
   contact: { introTitle: "We would be glad to hear from you.", introCopy: "The form prepares a message in your email app so you can review it before sending." },
   cta: { eyebrow: "Begin your journey", title: "Let the first step become a story.", copy: "Explore a classical arts education shaped with patience, precision, and care.", label: "Explore admissions", href: "/admissions" },
-  programs, faculty, classTimings, events, galleryImages,
+  programs, faculty, classTimings, events, galleryImages, videos: [], youtubeChannelId: "",
   stories: [
     { id: "foundation", number: "01", title: "Foundation", copy: "Students begin with posture, rhythm, adavus, and the discipline of attentive practice.", image: "/academy/gallery/gallery-07.webp", icon: "footprints" },
     { id: "expression", number: "02", title: "Expression", copy: "Technique expands into abhinaya, musicality, and the confidence to communicate a story.", image: "/academy/gallery/gallery-18.webp", icon: "music" },

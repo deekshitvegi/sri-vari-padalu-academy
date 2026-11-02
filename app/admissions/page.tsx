@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";
 import Link from "next/link";
-import { getSiteContent } from "../content-store";
+import { getPublicSiteContent } from "../content-store";
 import { BuilderPage, managedPageFor } from "../components/page-builder-renderer";
 import { CTA, PageHero, SectionHeading } from "../components/ui";
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Admissions", description: "Begin Bha
 export const dynamic = "force-dynamic";
 
 export default async function AdmissionsPage() {
-  const content = await getSiteContent();
+  const content = await getPublicSiteContent();
   const managed = managedPageFor(content, "admissions");
   if (managed?.layout === "builder") return <BuilderPage page={managed} content={content} />;
   const { academy } = content;

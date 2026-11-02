@@ -74,6 +74,8 @@ function mergeContent(saved: Partial<SiteContent>): SiteContent {
     ...defaultSiteContent,
     ...saved,
     academy: { ...defaultSiteContent.academy, ...saved.academy },
+    youtubeChannelId: typeof saved.youtubeChannelId === "string" ? saved.youtubeChannelId : "",
+    videos: Array.isArray(saved.videos) ? saved.videos : [],
     navigation: Array.isArray(saved.navigation) ? saved.navigation : structuredClone(defaultSiteContent.navigation),
     header: { ...defaultSiteContent.header, ...saved.header },
     footer: { ...defaultSiteContent.footer, ...saved.footer },
@@ -85,4 +87,10 @@ function mergeContent(saved: Partial<SiteContent>): SiteContent {
     contact: { ...defaultSiteContent.contact, ...saved.contact },
     cta: { ...defaultSiteContent.cta, ...saved.cta },
   };
+}
+
+/** Keep unpublished videos out of public RSC payloads, including dev metadata. */
+export async function getPublicSiteContent(): Promise<SiteContent> {
+  const content = await getSiteContent();
+  return { ...content, videos: content.videos.filter((video) => video.published) };
 }

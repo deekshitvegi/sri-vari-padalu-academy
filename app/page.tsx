@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Clock3 } from "lucide-react";
-import { getSiteContent } from "./content-store";
+import { getPublicSiteContent } from "./content-store";
 import { ButtonLink, CTA, SectionHeading } from "./components/ui";
 import { LineageGrowth } from "./components/lineage-growth";
 import { BuilderPage, managedPageFor } from "./components/page-builder-renderer";
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
-  const content = await getSiteContent();
+  const content = await getPublicSiteContent();
   const managed = managedPageFor(content, "home");
   if (managed?.layout === "builder") return <BuilderPage page={managed} content={content} />;
   const { academy, classTimings, faculty, galleryImages, programs, home } = content;

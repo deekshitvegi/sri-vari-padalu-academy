@@ -1,5 +1,6 @@
 import { getSiteContent, saveSiteContent } from "../../content-store";
 import { requireAdminApi } from "../../admin-auth";
+import { channelValidationError, videoValidationError, youtubeChannelId } from "../../youtube";
 import type { SiteContent } from "../../data";
 
 export const dynamic = "force-dynamic";
@@ -21,9 +22,15 @@ export async function PUT(request: Request) {
     if (!payload.content || !payload.content.academy || !Array.isArray(payload.content.programs)) {
       return Response.json({ error: "Invalid website content." }, { status: 400 });
     }
+    const channelError = channelValidationError(payload.content.youtubeChannelId ?? "");
+    if (channelError) return Response.json({ error: channelError }, { status: 400 });
+    const videoError = videoValidationError(payload.content.videos ?? []);
+    if (videoError) return Response.json({ error: videoError }, { status: 400 });
     const current = await getSiteContent();
     const safeContent: SiteContent = {
       ...payload.content,
+      youtubeChannelId: payload.content.youtubeChannelId === undefined ? current.youtubeChannelId : youtubeChannelId(payload.content.youtubeChannelId) ?? "",
+      videos: payload.content.videos ?? current.videos,
       navigation: current.navigation,
       header: current.header,
       footer: current.footer,
