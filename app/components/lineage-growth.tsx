@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { prefersReducedMotion } from "../motion";
 
 export function LineageGrowth({ eyebrow, title, accent, copy, realImage, sculptureImage }: {
   eyebrow: string; title: string; accent: string; copy: string; realImage: string; sculptureImage: string;
@@ -16,10 +17,9 @@ export function LineageGrowth({ eyebrow, title, accent, copy, realImage, sculptu
     const stage = stageRef.current;
     if (!section || !stage) return;
     const finePointer = window.matchMedia("(pointer: fine)");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
     const reveal = (event: PointerEvent) => {
-      if (!finePointer.matches || reducedMotion.matches) return;
+      if (!finePointer.matches || prefersReducedMotion()) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         const rect = stage.getBoundingClientRect();

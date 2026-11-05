@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Camera, Menu, Phone, Play, X } from "lucide-react";
 import type { NavigationItem, SiteContent } from "../data";
 import { SiteMotion } from "./site-motion";
+import { MotionToggle } from "./motion-toggle";
 
 function Brand({ header }: { header: SiteContent["header"] }) {
   return <Link className="brand" href="/" aria-label="Sri Vari Padalu Academy home">
@@ -81,7 +82,7 @@ function Footer({ content }: { content: Pick<SiteContent, "academy" | "header" |
       <div><span className="footer-label">{footer.exploreLabel}</span>{navigation.filter((item) => item.visible && item.href !== "/").map((item) => <Link key={item.id} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined}>{item.label}</Link>)}</div>
       <div><span className="footer-label">{footer.visitLabel}</span><p>{academy.address}</p><a href={`tel:${academy.phoneHref}`}><Phone size={16} aria-hidden="true" />{academy.phone}</a><a className="footer-email" href={`mailto:${academy.email}`}>{academy.email}</a></div>
     </div>
-    <div className="footer-bottom"><span>© {new Date().getFullYear()} {footer.copyright}</span><span>Classical arts · Secunderabad</span></div>
+    <div className="footer-bottom"><span>© {new Date().getFullYear()} {footer.copyright}</span><MotionToggle /><span>Classical arts · Secunderabad</span></div>
   </footer>;
 }
 

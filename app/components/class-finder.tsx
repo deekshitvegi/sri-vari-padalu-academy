@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Clock3, RotateCcw } from "lucide-react";
 import type { ClassTiming, Program } from "../data";
+import { prefersReducedMotion } from "../motion";
 
 export function ClassFinder({ programs, schedules }: { programs: Program[]; schedules: ClassTiming[] }) {
   const [program, setProgram] = useState("");
@@ -15,7 +16,7 @@ export function ClassFinder({ programs, schedules }: { programs: Program[]; sche
   const results = schedules.filter((item) => !day || item.days.split("·").some((value) => value.trim() === day)).map((item) => ({ ...item, sessions: item.sessions.filter((session) => !selected || session[2].toLowerCase() === selected.name.toLowerCase()) })).filter((item) => item.sessions.length > 0);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion()) return;
     const animation = resultsRef.current?.animate([{ opacity: .25, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 300, easing: "cubic-bezier(.22,1,.36,1)" });
     return () => animation?.cancel();
   }, [program, day]);

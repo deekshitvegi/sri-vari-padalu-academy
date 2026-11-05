@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { MOTION_CHANGE_EVENT, prefersReducedMotion } from "../motion";
 
 const motion = { enter: 650, fast: 220, distance: 24, easing: "cubic-bezier(.22, 1, .36, 1)" };
 
@@ -28,7 +29,7 @@ export function SiteMotion() {
       void animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
     };
     const updateParallax = () => {
-      if (reduced.matches || window.matchMedia("(pointer: coarse)").matches) return;
+      if (prefersReducedMotion() || window.matchMedia("(pointer: coarse)").matches) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         parallax.forEach((image) => {
@@ -45,7 +46,7 @@ export function SiteMotion() {
       animations.clear();
       cancelAnimationFrame(frame);
       parallax.forEach((image) => { image.style.transform = ""; });
-      if (reduced.matches) return;
+      if (prefersReducedMotion()) return;
       scope.querySelectorAll(".image-reveal-copy > *, .page-hero-content > *").forEach((element, index) => enter(element, index * 70));
       observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -60,6 +61,7 @@ export function SiteMotion() {
     };
     setup();
     reduced.addEventListener("change", setup);
+    window.addEventListener(MOTION_CHANGE_EVENT, setup);
     window.addEventListener("scroll", updateParallax, { passive: true });
     return () => {
       observer?.disconnect();
@@ -67,6 +69,7 @@ export function SiteMotion() {
       cancelAnimationFrame(frame);
       parallax.forEach((image) => { image.style.transform = ""; });
       reduced.removeEventListener("change", setup);
+      window.removeEventListener(MOTION_CHANGE_EVENT, setup);
       window.removeEventListener("scroll", updateParallax);
     };
   }, [pathname]);

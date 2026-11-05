@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import type { GalleryImage } from "../data";
+import { prefersReducedMotion } from "../motion";
 
 const filters = ["all", "landscape", "portrait", "square"] as const;
 
@@ -27,13 +28,13 @@ export function GalleryExperience({ compact = false, galleryImages }: { compact?
   }, [open]);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion()) return;
     const animation = gridRef.current?.animate([{ opacity: .3, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 300, easing: "cubic-bezier(.22,1,.36,1)" });
     return () => animation?.cancel();
   }, [filter]);
 
   useEffect(() => {
-    if (!open || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!open || prefersReducedMotion()) return;
     const animation = pictureRef.current?.animate([{ opacity: .25, transform: "scale(.98)" }, { opacity: 1, transform: "scale(1)" }], { duration: 220, easing: "ease-out" });
     return () => animation?.cancel();
   }, [active, open]);
