@@ -31,10 +31,11 @@ const worker = {
     const url = new URL(request.url);
 
     if (url.pathname === "/_vinext/image") {
+      const { ASSETS: assets, IMAGES: images } = env;
       // Local vinext development does not provide Cloudflare's ASSETS or
       // IMAGES bindings. Fall back to the original public asset so the site
       // remains usable locally; deployed environments still use optimization.
-      if (!env.ASSETS || !env.IMAGES) {
+      if (!assets || !images) {
         const source = url.searchParams.get("url");
         if (!source || !source.startsWith("/") || source.startsWith("//")) {
           return new Response("Invalid local image source", { status: 400 });
@@ -49,9 +50,9 @@ const worker = {
 
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
-        fetchAsset: (path) => env.ASSETS.fetch(new Request(new URL(path, request.url))),
+        fetchAsset: (path) => assets.fetch(new Request(new URL(path, request.url))),
         transformImage: async (body, { width, format, quality }) => {
-          const result = await env.IMAGES.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
+          const result = await images.input(body).transform(width > 0 ? { width } : {}).output({ format, quality });
           return result.response();
         },
       }, allowedWidths);
