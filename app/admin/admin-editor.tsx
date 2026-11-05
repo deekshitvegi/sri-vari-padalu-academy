@@ -132,11 +132,12 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
         </AdminSection>}
 
         {section === "home" && <>
-          <AdminSection title="Homepage stage" copy="Visitors choose a discipline to change the photograph and class links. Edit those photographs in Learning → Programs."><FieldGrid>
+          <AdminSection title="Homepage stage" copy="Set the opening portrait here. Visitors can switch disciplines to see other photographs and class links; edit those photographs in Learning → Programs."><FieldGrid>
             <Field label="Eyebrow" value={content.home.heroEyebrow} onChange={(value) => update((d) => { d.home.heroEyebrow = value; })} />
             <Field label="Main title" value={content.home.heroTitle} onChange={(value) => update((d) => { d.home.heroTitle = value; })} />
             <Field label="Accent title" value={content.home.heroAccent} onChange={(value) => update((d) => { d.home.heroAccent = value; })} />
             <Field wide multiline label="Hero copy" value={content.home.heroCopy} onChange={(value) => update((d) => { d.home.heroCopy = value; })} />
+            <ImageField label="Opening stage portrait" value={content.home.realDancerImage} onChange={(value) => update((d) => { d.home.realDancerImage = value; })} upload={upload} />
           </FieldGrid></AdminSection>
           <AdminSection title="Home page sections"><FieldGrid>
             {(["manifestoEyebrow","manifestoTitle","manifestoAccent","manifestoCopy","programsEyebrow","programsTitle","programsCopy","archiveEyebrow","archiveTitle","scheduleEyebrow","scheduleTitle","scheduleCopy"] as const).map((key) => <Field key={key} wide={key.toLowerCase().includes("copy")} multiline={key.toLowerCase().includes("copy")} label={humanize(key)} value={content.home[key]} onChange={(value) => update((d) => { d.home[key] = value; })} />)}

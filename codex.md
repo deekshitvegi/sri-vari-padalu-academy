@@ -52,9 +52,47 @@ On phones the name and enquiry link occupy the first row; the three expanding
 navigation controls stay visible on the second row. On desktop it is one row.
 Click/tap must visibly open and close panels, with keyboard access retained.
 
-The homepage revision is adding an explicit, visible program selector that
+The homepage revision added an explicit, visible program selector that
 changes the image, program details and class links. The user should not have
 to discover a subtle hover effect before the page feels interactive.
+
+The owner supplied four Maps photographs as alternatives for the top image on
+the homepage. Scope clarification: ONLY the opening hero picture should
+change. Do not replace the archive, schedule, faculty or gallery photographs.
+Two supporting images were temporarily replaced during exploration and were
+restored immediately after the owner corrected the scope, in both code and the
+local content database. Their unused public image files were removed.
+
+Selected hero: the kneeling red-and-gold performance portrait from
+https://maps.app.goo.gl/Vgq4BH88wBHeqqTm8 , saved unchanged as
+`public/academy/hero/academy-maps-portrait.jpg`. Keep it editable through the
+home editor's Opening stage portrait field. The user's other hero alternatives:
+
+- https://maps.app.goo.gl/uW9rgZPdrFN17KQ79
+- https://maps.app.goo.gl/EXw86c9Zv7CtqPiN7
+- https://maps.app.goo.gl/EZuH5EvWz44xKBef6
+
+The limited Maps viewer ignored photo IDs and displayed its default gallery
+image for every link. That first candidate was wrong and is not used. Retrieve
+the specific image URL encoded after `!6s` in each resolved Maps share URL and
+visually verify the download. Only the hero photo is retained in public assets.
+Home archive and schedule remain `/academy/gallery/gallery-13.webp` and
+`/academy/hero/story-portrait.webp` respectively. The original local values
+were restored from `.codex-local/content-before-maps-photo-set.json`.
+
+Revision verification: lint, TypeScript, production build and all six existing
+tests pass. In the browser, choosing Kuchipudi changed the active image and
+program link; End selected Sangeetham; Next wrapped to Bharatanatyam; a real
+mouse drag changed the program. At 390×844 the tabs end at 836px and the page
+has no horizontal overflow. Desktop was inspected at 1440×900. The header has
+one full name and its three menu controls remain visible at phone width.
+A deep comparison with the pre-photo content backup found exactly one saved
+content change: `home.realDancerImage`. The supporting photographs are restored.
+Fresh screenshots are in `.codex-local/qa/revision`, and the design evidence
+record passed the local checker. The revised header and interactive stage were
+pushed as `0be8c6c` and `7c778b3`; the final photo/credit update follows them.
+
+### Previous UI pass
 
 The completed UI pass includes ten implementation/setup commits through
 `2a2a444`, followed by a documentation and validation commit. Both the original
@@ -131,8 +169,10 @@ identified as a floating Morphing Mega Menu and adapted independently.
 - Contact prepares a `mailto:` message; the website does not send email itself.
 - YouTube players load on demand. Video links and channel IDs are validated.
   The site does not start broadcasts or detect live status automatically.
-- Shared frame: `app/components/site-frame.tsx`. Interactive dancer hero:
-  `app/components/lineage-growth.tsx`. Gallery and reusable page sections have
+- Shared frame: `app/components/site-frame.tsx`. Interactive program hero:
+  `app/components/discipline-stage.tsx` (replaces the old lineage-growth file).
+  Header styles are in `app/navigation.css` and hero styles in `app/stage.css`.
+  Gallery and reusable page sections have
   their own components. `site-motion.tsx` uses native Web Animations and
   IntersectionObserver for entrances; pointer updates run only on input.
   GSAP/Lenis remain installed from the previous implementation but are not used

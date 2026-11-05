@@ -54,12 +54,15 @@ The UI supports phone, tablet, laptop, desktop, reduced-motion, touch, and fine-
 
 ## Interactive visitor experience
 
-The floating navigation expands into one shared panel for Programs, Academy,
-and Explore. It responds to hover, click, keyboard focus, Arrow Down and Escape.
+One wordmark and the Programs, Academy, and Explore controls share the floating
+navigation. Those controls remain visible on phones; there is no separate logo
+card or hamburger-only version. It responds to hover, click, tap, Arrow Down and Escape.
 Navigation labels, destinations and class thumbnails come from saved content.
 
-The homepage combines a pointer-controlled dancer portrait with scroll reveals
-and limited desktop parallax. The footer's **Pause animations** control remembers
+The homepage opens with the owner's selected Maps portrait. Choosing a discipline,
+using the previous/next buttons, or dragging/swiping across the image changes the
+photograph, program caption and class/enquiry links. The tabs also support arrow
+keys, Home and End. The footer's **Pause animations** control remembers
 the visitor's choice, while system reduced-motion preferences take priority.
 
 At `/programs#schedule`, visitors can filter the saved timetable by discipline
@@ -69,7 +72,8 @@ prepares an email draft for the visitor to open and send; it does not send mail.
 The photo gallery has animated orientation filters, result counts and a native
 lightbox with focus containment, arrow-key navigation, Escape and focus return.
 
-`app/globals.css` imports `app/public.css` and `app/editors.css`. Public design
+`app/globals.css` imports `app/public.css`, `app/navigation.css`, `app/stage.css`
+and `app/editors.css`. Public design
 changes can therefore be made without restyling the content and design editors.
 `codex.md` records owner preferences, design references, implementation decisions
 and verification results for future sessions.

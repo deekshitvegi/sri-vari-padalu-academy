@@ -15,7 +15,7 @@ export default async function Home() {
   const { academy, classTimings, faculty, programs, home } = content;
 
   return <>
-    <DisciplineStage programs={programs} eyebrow={home.heroEyebrow} title={home.heroTitle} accent={home.heroAccent} copy={home.heroCopy} fallbackImage={home.archiveImage} />
+    <DisciplineStage programs={programs} eyebrow={home.heroEyebrow} title={home.heroTitle} accent={home.heroAccent} copy={home.heroCopy} fallbackImage={home.archiveImage} openingImage={home.realDancerImage} />
 
     <section id="introduction" className="manifesto section-shell">
       <div><p className="kicker">{home.manifestoEyebrow}</p><h2>{home.manifestoTitle}<br /><span>{home.manifestoAccent}</span></h2></div>

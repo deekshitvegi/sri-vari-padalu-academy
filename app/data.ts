@@ -218,7 +218,7 @@ export const defaultSiteContent: SiteContent = {
   footer: { eyebrow: "Sri Vari Padalu Academy", title: "There is always a first class", ctaLabel: "Ask about joining", ctaHref: "/admissions", exploreLabel: "Explore", visitLabel: "Visit the academy", copyright: "Sri Vari Padalu Academy" },
   managedPages: defaultManagedPages,
   home: {
-    heroEyebrow: "West Marredpally · Secunderabad", heroTitle: "A school for", heroAccent: "classical arts", heroCopy: "Learn Bharatanatyam, Kuchipudi and Carnatic music with the guidance of experienced teachers. Find a class, build your practice and make the tradition your own.", realDancerImage: "/academy/hero/adult-dancer-cutout-v6.webp", sculptureImage: "/academy/hero/adult-dancer-cutout-v6.webp",
+    heroEyebrow: "West Marredpally · Secunderabad", heroTitle: "A school for", heroAccent: "classical arts", heroCopy: "Learn Bharatanatyam, Kuchipudi and Carnatic music with the guidance of experienced teachers. Find a class, build your practice and make the tradition your own.", realDancerImage: "/academy/hero/academy-maps-portrait.jpg", sculptureImage: "/academy/hero/adult-dancer-cutout-v6.webp",
     manifestoEyebrow: "Inside the academy", manifestoTitle: "Learning begins", manifestoAccent: "with practice", manifestoCopy: "Students work on foundational technique, rhythm and expression, with regular classes and time to practise independently.",
     programsEyebrow: "What we teach", programsTitle: "Find your discipline", programsCopy: "Explore our dance and music programs, the skills you’ll learn and the weekly class schedule.",
     archiveEyebrow: "Life on stage", archiveTitle: "Practice meets performance", archiveImage: "/academy/gallery/gallery-13.webp",

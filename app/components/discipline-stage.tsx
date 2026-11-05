@@ -7,8 +7,8 @@ import { ArrowLeft, ArrowRight, MoveHorizontal } from "lucide-react";
 import type { Program } from "../data";
 import { prefersReducedMotion } from "../motion";
 
-export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallbackImage }: {
-  programs: Program[]; eyebrow: string; title: string; accent: string; copy: string; fallbackImage: string;
+export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallbackImage, openingImage }: {
+  programs: Program[]; eyebrow: string; title: string; accent: string; copy: string; fallbackImage: string; openingImage: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const stageRef = useRef<HTMLElement>(null);
@@ -64,9 +64,9 @@ export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallba
     onPointerUp={endSwipe}
     onPointerCancel={() => { pointerStart.current = null; if (stageRef.current) stageRef.current.dataset.dragging = "false"; }}>
     <div className="discipline-scenes" aria-hidden="true">
-      {programs.length ? programs.map((program, index) => <div key={program.id} className={`discipline-scene ${active?.id === program.id ? "is-active" : ""}`}>
-        <Image src={program.image} alt="" fill priority={index === 0} loading={index === 0 ? undefined : "eager"} sizes="100vw" draggable={false} unoptimized />
-      </div>) : <div className="discipline-scene is-active"><Image src={fallbackImage} alt="" fill priority sizes="100vw" unoptimized /></div>}
+      {programs.length ? programs.map((program, index) => <div key={program.id} className={`discipline-scene ${active?.id === program.id ? "is-active" : ""} ${index === 0 && openingImage ? "is-portrait" : ""}`}>
+        <div className={index === 0 && openingImage ? "discipline-portrait" : "discipline-landscape"}><Image src={index === 0 && openingImage ? openingImage : program.image} alt="" fill priority={index === 0} loading={index === 0 ? undefined : "eager"} sizes={index === 0 && openingImage ? "(max-width: 760px) 100vw, 50vw" : "100vw"} draggable={false} unoptimized /></div>
+      </div>) : <div className={`discipline-scene is-active ${openingImage ? "is-portrait" : ""}`}><div className={openingImage ? "discipline-portrait" : "discipline-landscape"}><Image src={openingImage || fallbackImage} alt="" fill priority sizes="100vw" unoptimized /></div></div>}
     </div>
     <div className="discipline-shade" aria-hidden="true" />
     <div className="discipline-inner section-shell">
@@ -81,6 +81,7 @@ export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallba
       {programs.length > 0 && <div className="discipline-picker">
         <div className="discipline-picker-heading"><span>Choose a discipline</span><span className="discipline-drag-hint"><MoveHorizontal aria-hidden="true" />Drag or swipe to explore</span><div className="discipline-arrows"><button aria-label="Previous discipline" disabled={programs.length < 2} onClick={() => choose(activeIndex - 1)}><ArrowLeft aria-hidden="true" /></button><button aria-label="Next discipline" disabled={programs.length < 2} onClick={() => choose(activeIndex + 1)}><ArrowRight aria-hidden="true" /></button></div></div>
         <div className="discipline-tabs" role="tablist" aria-label="Choose a discipline">{programs.map((program, index) => <button key={program.id} ref={(node) => { tabs.current[index] = node; }} id={`discipline-tab-${program.id}`} role="tab" aria-selected={active?.id === program.id} aria-controls="discipline-program-panel" tabIndex={active?.id === program.id ? 0 : -1} onClick={() => choose(index)} onKeyDown={(event) => {
+          if (event.altKey || event.ctrlKey || event.metaKey) return;
           const next = event.key === "ArrowRight" ? (index + 1) % programs.length : event.key === "ArrowLeft" ? (index - 1 + programs.length) % programs.length : event.key === "Home" ? 0 : event.key === "End" ? programs.length - 1 : null;
           if (next === null) return;
           event.preventDefault(); choose(next); tabs.current[next]?.focus();

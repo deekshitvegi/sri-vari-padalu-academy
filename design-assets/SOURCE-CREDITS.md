@@ -1,6 +1,29 @@
 # Source photography
 
-## Current interactive homepage dancer
+## Current opening hero photograph
+
+The owner selected Google Maps photographs as alternatives for the top image
+on the homepage, then explicitly clarified that other homepage photographs
+must stay unchanged.
+
+- Selected opening portrait: https://maps.app.goo.gl/Vgq4BH88wBHeqqTm8
+- Photograph: kneeling dancer in red and gold, 853 × 1280.
+- Local file: `public/academy/hero/academy-maps-portrait.jpg`.
+- Listing: Sri Vari Padalu Bharatanatyam Dance Academy.
+- Requested on 2026-11-05. The downloaded photograph is unchanged; CSS positions
+  it in the opening hero. No generated or reconstructed person is involved.
+
+Other alternatives considered for that same hero placement:
+
+- https://maps.app.goo.gl/uW9rgZPdrFN17KQ79
+- https://maps.app.goo.gl/EXw86c9Zv7CtqPiN7
+- https://maps.app.goo.gl/EZuH5EvWz44xKBef6
+
+The specific photograph addresses were read from the resolved share URLs and
+visually verified after download. The limited Maps viewer displayed its default
+gallery image instead of the shared photo IDs, so that default is not used.
+The archive, class schedule and gallery photographs were retained.
+## Previous interactive homepage dancer
 
 - Photo ID: 28518032
 - Photographer: Nilendra jyoti Halder
