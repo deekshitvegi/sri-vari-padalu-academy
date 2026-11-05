@@ -17,6 +17,11 @@ decisions and outcomes without credentials or private runtime data.
   Keep the existing history and use normal pushes.
 - Maintain this `codex.md` file as conversation memory across context compaction
   and future sessions.
+- Follow-up clarification: the owner explicitly wants a fully interactive,
+  animated, dynamic site with a visually engaging interface. Do not interpret
+  anti-slop as removing motion or producing a static-looking result. Keep the
+  calmer visual foundation and add responsive interactions, scroll reveals,
+  gallery transitions, and page entrances. Honor reduced-motion preferences.
 
 ## Repository and local preview
 

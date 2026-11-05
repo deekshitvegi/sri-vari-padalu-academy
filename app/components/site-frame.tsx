@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Camera, Menu, Phone, Play, X } from "lucide-react";
 import type { NavigationItem, SiteContent } from "../data";
+import { SiteMotion } from "./site-motion";
 
 function Brand({ header }: { header: SiteContent["header"] }) {
   return <Link className="brand" href="/" aria-label="Sri Vari Padalu Academy home">
@@ -108,6 +109,7 @@ export function SiteFrame({ children, content }: { children: React.ReactNode; co
     <a className="skip-link" href="#main-content">Skip to main content</a>
     {!adminRoute && <><div className="scroll-progress" ref={progressRef} aria-hidden="true" /><Header content={content} /></>}
     <main id="main-content" tabIndex={-1} key={pathname}>{children}</main>
+    <SiteMotion />
     {!adminRoute && <Footer content={content} />}
   </>;
 }

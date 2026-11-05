@@ -58,6 +58,8 @@ h1, h2, h3 { text-wrap: balance; }
 .menu-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); background: transparent; }
 .mobile-menu { inset: 0 0 0 auto; margin: 0; width: min(440px, 100%); max-width: 100%; max-height: 100dvh; height: 100dvh; padding: 24px; border: 0; background: var(--paper); color: var(--ink); }
 .mobile-menu::backdrop { background: rgb(30 15 20 / .55); }
+.mobile-menu[open] { animation: menu-in 300ms var(--ease); }
+@keyframes menu-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
 .mobile-menu-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; color: var(--muted); font-size: .85rem; }
 .mobile-menu-heading button { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line); background: transparent; }
 .mobile-menu nav { display: grid; }
@@ -120,6 +122,8 @@ h1, h2, h3 { text-wrap: balance; }
 .program-band h3 { margin: 0; font: 400 clamp(1.8rem, 2.5vw, 2.8rem)/1.1 var(--display); letter-spacing: -.025em; }
 .program-arrow { margin-top: 24px; display: grid; place-items: center; width: 40px; height: 40px; background: transparent; border: 1px solid #998279; border-radius: 50%; }
 .program-arrow svg { width: 18px; }
+.program-arrow { transition: background-color 180ms var(--ease), transform 300ms var(--ease); }
+.program-band:hover .program-arrow { color: var(--ink); background: var(--paper); transform: rotate(45deg); }
 .program-band:hover > img { transform: scale(1.025); }
 .archive-feature { position: relative; min-height: 660px; color: #fff8ee; background: #1c1514; }
 .archive-sticky { position: relative; min-height: 660px; overflow: hidden; display: flex; align-items: center; }
@@ -216,6 +220,8 @@ h1, h2, h3 { text-wrap: balance; }
 .lightbox { position: fixed; inset: 0; width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; padding: 0; border: 0; z-index: 500; color: #fff6ed; background: #1c1719; }
 .lightbox[open], div.lightbox { display: grid; place-items: center; }
 .lightbox::backdrop { background: #1c1719; }
+.lightbox[open] { animation: dialog-in 220ms var(--ease); }
+@keyframes dialog-in { from { opacity: 0; } to { opacity: 1; } }
 .lightbox-image { position: relative; width: min(80vw, 1400px); height: 78dvh; }
 .lightbox-image img { object-fit: contain; }
 .lightbox button { position: absolute; z-index: 2; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #7d6b72; border-radius: 50%; background: #2b2226; }
