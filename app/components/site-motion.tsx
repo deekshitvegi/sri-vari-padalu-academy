@@ -47,7 +47,7 @@ export function SiteMotion() {
       cancelAnimationFrame(frame);
       parallax.forEach((image) => { image.style.transform = ""; });
       if (prefersReducedMotion()) return;
-      scope.querySelectorAll(".image-reveal-copy > *, .page-hero-content > *").forEach((element, index) => enter(element, index * 70));
+      scope.querySelectorAll(".discipline-copy > *, .page-hero-content > *").forEach((element, index) => enter(element, index * 70));
       observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;

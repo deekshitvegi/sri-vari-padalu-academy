@@ -132,13 +132,11 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
         </AdminSection>}
 
         {section === "home" && <>
-          <AdminSection title="Interactive hero" copy="The sculpture is the default image. Moving over it reveals the real dancer through a soft circular lens."><FieldGrid>
+          <AdminSection title="Homepage stage" copy="Visitors choose a discipline to change the photograph and class links. Edit those photographs in Learning → Programs."><FieldGrid>
             <Field label="Eyebrow" value={content.home.heroEyebrow} onChange={(value) => update((d) => { d.home.heroEyebrow = value; })} />
             <Field label="Main title" value={content.home.heroTitle} onChange={(value) => update((d) => { d.home.heroTitle = value; })} />
             <Field label="Accent title" value={content.home.heroAccent} onChange={(value) => update((d) => { d.home.heroAccent = value; })} />
             <Field wide multiline label="Hero copy" value={content.home.heroCopy} onChange={(value) => update((d) => { d.home.heroCopy = value; })} />
-            <ImageField label="Real dancer image" value={content.home.realDancerImage} onChange={(value) => update((d) => { d.home.realDancerImage = value; })} upload={upload} />
-            <ImageField label="Sculpture image" value={content.home.sculptureImage} onChange={(value) => update((d) => { d.home.sculptureImage = value; })} upload={upload} />
           </FieldGrid></AdminSection>
           <AdminSection title="Home page sections"><FieldGrid>
             {(["manifestoEyebrow","manifestoTitle","manifestoAccent","manifestoCopy","programsEyebrow","programsTitle","programsCopy","archiveEyebrow","archiveTitle","scheduleEyebrow","scheduleTitle","scheduleCopy"] as const).map((key) => <Field key={key} wide={key.toLowerCase().includes("copy")} multiline={key.toLowerCase().includes("copy")} label={humanize(key)} value={content.home[key]} onChange={(value) => update((d) => { d.home[key] = value; })} />)}

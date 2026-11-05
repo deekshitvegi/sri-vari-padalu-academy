@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Clock3 } from "lucide-react";
 import { getPublicSiteContent } from "./content-store";
 import { ButtonLink, CTA, SectionHeading } from "./components/ui";
-import { LineageGrowth } from "./components/lineage-growth";
+import { DisciplineStage } from "./components/discipline-stage";
 import { BuilderPage, managedPageFor } from "./components/page-builder-renderer";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +15,7 @@ export default async function Home() {
   const { academy, classTimings, faculty, programs, home } = content;
 
   return <>
-    <LineageGrowth eyebrow={home.heroEyebrow} title={home.heroTitle} accent={home.heroAccent} copy={home.heroCopy} realImage={home.realDancerImage} sculptureImage={home.sculptureImage} />
+    <DisciplineStage programs={programs} eyebrow={home.heroEyebrow} title={home.heroTitle} accent={home.heroAccent} copy={home.heroCopy} fallbackImage={home.archiveImage} />
 
     <section id="introduction" className="manifesto section-shell">
       <div><p className="kicker">{home.manifestoEyebrow}</p><h2>{home.manifestoTitle}<br /><span>{home.manifestoAccent}</span></h2></div>
