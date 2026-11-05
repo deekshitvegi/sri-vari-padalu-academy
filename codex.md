@@ -38,6 +38,24 @@ decisions and outcomes without credentials or private runtime data.
 
 ## Implementation checkpoint
 
+### Owner revision after the first UI pass
+
+The owner rejected the large ivory brand card and said the result still felt
+static. The owner also explicitly questioned showing both "Sri Vari Padalu"
+and "SVP Academy". Show one full academy name in the header, without a repeated
+monogram, subtitle, logo tile or separate brand card. The earlier visual pass
+was not approved simply because its checks passed.
+
+The narrow preview had hidden the morphing navigation behind a hamburger.
+Replace that split layout with one unified expanding header at every width.
+On phones the name and enquiry link occupy the first row; the three expanding
+navigation controls stay visible on the second row. On desktop it is one row.
+Click/tap must visibly open and close panels, with keyboard access retained.
+
+The homepage revision is adding an explicit, visible program selector that
+changes the image, program details and class links. The user should not have
+to discover a subtle hover effect before the page feels interactive.
+
 The completed UI pass includes ten implementation/setup commits through
 `2a2a444`, followed by a documentation and validation commit. Both the original
 four local commits and the newer GitHub history are preserved. The finished

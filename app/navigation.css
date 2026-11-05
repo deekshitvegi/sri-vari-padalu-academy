@@ -1,0 +1,60 @@
+/* One wordmark and one expanding navigation, at every viewport width. */
+.site-header { position: fixed; inset: 20px 0 auto; z-index: 100; pointer-events: none; }
+.header-shell { width: min(760px, calc(100% - 40px)); margin: auto; pointer-events: auto; }
+.brand { display: inline-flex; align-items: center; flex-shrink: 0; }
+.brand-copy { display: grid; gap: 6px; line-height: 1.2; }
+.brand-copy strong { font: 24px/1.2 var(--display); letter-spacing: -.02em; }
+.brand-copy small { color: var(--muted); font-size: .75rem; }
+.morph-nav { --panel-height: 0px; width: 100%; border: 1px solid #51464b; border-radius: 20px; color: #f8f0e9; background: #252023; box-shadow: 0 12px 40px rgb(0 0 0 / .22); overflow: hidden; }
+.morph-bar { display: flex; align-items: center; gap: 4px; padding: 8px; }
+.morph-bar > button, .morph-bar > a { min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: .8rem; border: 0; border-radius: 24px; white-space: nowrap; }
+.morph-bar > .morph-brand { justify-content: flex-start; min-width: 160px; margin-right: auto; padding-inline: 16px 20px; color: #f5e9d9; font: 22px/1.1 var(--display); letter-spacing: -.025em; border-radius: 8px; transition: color 180ms var(--ease); }
+.morph-brand:hover { color: #e8c28e; }
+.morph-bar > button { background: transparent; color: #c8bec2; transition: color 180ms var(--ease), background-color 180ms var(--ease), transform 180ms var(--ease); }
+.morph-bar > button:hover, .morph-bar > button[aria-expanded="true"] { color: white; background: #484044; }
+.morph-bar > button:active { transform: scale(.97); }
+.morph-bar > button.morph-current { color: #f3e3cf; }
+.morph-bar > button svg { width: 12px; height: 12px; transition: transform 300ms var(--ease); }
+.morph-bar > button[aria-expanded="true"] svg { transform: rotate(180deg); }
+.morph-nav :focus-visible { outline: 2px solid #e8c28e; outline-offset: 2px; }
+.morph-bar .morph-contact { color: #32242a; background: #f3ece4; }
+.morph-contact:hover { background: white; }
+.morph-contact svg { width: 14px; height: 14px; }
+.morph-panel-viewport { height: var(--panel-height); max-height: calc(100dvh - 120px); overflow: hidden auto; transition: height 420ms var(--ease); scrollbar-width: thin; }
+.morph-panel-content { padding: 4px 12px 12px; animation: morph-content-in 300ms var(--ease); }
+@keyframes morph-content-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.morph-panel-heading { min-height: 48px; padding: 0 12px 4px; display: flex; align-items: center; justify-content: space-between; color: #c7b5bc; font-size: .75rem; }
+.morph-panel-close { width: 40px; height: 40px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; color: #c7b5bc; background: transparent; }
+.morph-panel-close:hover { color: white; background: #484044; }
+.morph-panel-close svg { width: 16px; }
+.morph-row { min-height: 76px; padding: 12px; display: flex; align-items: center; gap: 16px; border-radius: 12px; transition: background-color 180ms var(--ease), transform 180ms var(--ease); }
+.morph-row:hover, .morph-row:focus-visible { background: #433a3f; }
+.morph-row:hover .morph-row-arrow { transform: translate(2px,-2px); }
+.morph-row > span:nth-child(2) { min-width: 0; display: grid; gap: 4px; }
+.morph-row strong { font-size: .9rem; font-weight: 500; }
+.morph-row small { color: #c7b5bc; font-size: .75rem; overflow-wrap: anywhere; }
+.morph-row-image, .morph-row-icon { position: relative; flex: 0 0 52px; width: 52px; height: 52px; border-radius: 10px; overflow: hidden; }
+.morph-row-image img { object-fit: cover; }
+.morph-row-icon { display: grid; place-items: center; color: #ddbd94; background: #46353d; }
+.morph-row-icon svg { width: 20px; }
+.morph-row-arrow { margin-left: auto; width: 16px; height: 16px; color: #c8b8bd; transition: transform 180ms var(--ease); }
+.morph-panel-footer { margin: 12px 12px 0; padding-top: 16px; min-height: 44px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #51434b; color: #ddbd94; font-size: .8rem; }
+.morph-panel-footer svg { width: 16px; }
+@media (max-width: 760px) {
+  .morph-bar > button, .morph-bar > a { padding-inline: 12px; }
+  .morph-bar > .morph-brand { min-width: 140px; padding-inline: 12px; font-size: 20px; }
+}
+@media (max-width: 620px) {
+  .site-header { top: 12px; }
+  .header-shell { width: calc(100% - 24px); }
+  .morph-nav { border-radius: 18px; }
+  .morph-bar { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 4px; padding: 6px; }
+  .morph-bar > .morph-brand { grid-column: 1 / 3; grid-row: 1; margin: 0; min-width: 0; font-size: 21px; }
+  .morph-bar > .morph-contact { grid-column: 3; grid-row: 1; padding-inline: 12px; justify-self: end; }
+  .morph-bar > button { grid-row: 2; padding-inline: 8px; font-size: .8rem; }
+  .morph-panel-viewport { max-height: calc(100dvh - 144px); }
+  .morph-panel-content { padding-inline: 8px; }
+  .morph-row { gap: 12px; }
+  .morph-row small { font-size: .72rem; }
+}
+@media (prefers-reduced-motion: reduce) { .morph-panel-viewport, .morph-bar > button, .morph-row-arrow { transition: none; } }

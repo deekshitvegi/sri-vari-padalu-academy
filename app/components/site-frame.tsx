@@ -2,78 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Camera, Menu, Phone, Play, X } from "lucide-react";
-import type { NavigationItem, SiteContent } from "../data";
+import { useEffect, useRef } from "react";
+import { ArrowUpRight, Camera, Phone, Play } from "lucide-react";
+import type { SiteContent } from "../data";
 import { SiteMotion } from "./site-motion";
 import { MotionToggle } from "./motion-toggle";
 import { MorphingNavigation } from "./morphing-navigation";
 
 function Brand({ header }: { header: SiteContent["header"] }) {
   return <Link className="brand" href="/" aria-label="Sri Vari Padalu Academy home">
-    <span className="brand-mark" aria-hidden="true">svp</span>
     <span className="brand-copy"><strong>{header.brandTitle}</strong><small>{header.brandSubtitle}</small></span>
   </Link>;
 }
 
-function isCurrent(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function Navigation({ items, onNavigate, mobile = false }: { items: NavigationItem[]; onNavigate?: () => void; mobile?: boolean }) {
-  const pathname = usePathname();
-  return <nav aria-label={mobile ? "Mobile navigation" : "Primary navigation"}>
-    {items.filter((item) => item.visible).map(({ id, label, href, external }) => <Link
-      key={id} href={href} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}
-      aria-current={!external && isCurrent(pathname, href) ? "page" : undefined} onClick={onNavigate}
-    >{label}{external && <ArrowUpRight aria-hidden="true" size={16} />}</Link>)}
-  </nav>;
-}
-
 function Header({ content }: { content: Pick<SiteContent, "header" | "navigation" | "programs"> }) {
-  const [open, setOpen] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (!open) { if (dialog.open) dialog.close(); return; }
-    const toggle = toggleRef.current;
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-    const desktop = window.matchMedia("(min-width: 1100px)");
-    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      desktop.removeEventListener("change", closeOnDesktop);
-      if (dialog.open) dialog.close();
-      toggle?.focus();
-    };
-  }, [open]);
-
-  const mobileItems = [...content.navigation];
-  if (content.header.showCta && !mobileItems.some((item) => item.visible && item.href === content.header.ctaHref)) {
-    mobileItems.push({ id: "header-cta", label: content.header.ctaLabel, href: content.header.ctaHref, visible: true });
-  }
-
-  return <header className="site-header">
-    <div className="header-shell">
-      <Brand header={content.header} />
-      <div className="desktop-only"><MorphingNavigation content={content} /></div>
-      {content.header.showCta && <Link className="header-join" href={content.header.ctaHref}>{content.header.ctaLabel}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
-      <button ref={toggleRef} className="menu-toggle" aria-label="Open menu" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(true)}><Menu aria-hidden="true" /></button>
-    </div>
-    <dialog id="mobile-navigation" className="mobile-menu" ref={dialogRef} aria-label="Website menu" onClose={() => setOpen(false)}>
-      <div className="mobile-menu-heading"><span>Explore the academy</span><button onClick={() => setOpen(false)} aria-label="Close menu"><X aria-hidden="true" /></button></div>
-      <Navigation items={mobileItems} mobile onNavigate={() => setOpen(false)} />
-      <p>Bharatanatyam · Kuchipudi · Sangeetham</p>
-    </dialog>
-  </header>;
+  return <header className="site-header"><div className="header-shell"><MorphingNavigation content={content} /></div></header>;
 }
-
 function Footer({ content }: { content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation"> }) {
   const { academy, header, footer, navigation } = content;
   return <footer className="site-footer">

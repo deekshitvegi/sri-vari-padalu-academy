@@ -3,14 +3,15 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps navigation, motion, and imagery production-ready", async () => {
-  const [frame, css, data] = await Promise.all([
+  const [frame, navigation, css, data] = await Promise.all([
     readFile(new URL("../app/components/site-frame.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/morphing-navigation.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/public.css", import.meta.url), "utf8"),
     readFile(new URL("../app/data.ts", import.meta.url), "utf8"),
   ]);
 
-  assert.match(frame, /"Primary navigation"/);
-  assert.match(frame, /aria-current=/);
+  assert.match(navigation, /"Primary navigation"/);
+  assert.match(navigation, /aria-current=/);
   assert.match(frame, /prefers-reduced-motion:\s*reduce/);
   assert.match(css, /@media \(max-width:\s*620px\)/);
   assert.match(css, /100dvh/);
