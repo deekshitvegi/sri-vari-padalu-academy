@@ -44,3 +44,6 @@ next-env.d.ts
 /outputs/
 /work/
 /.codex-local/
+
+# Keep the safe environment template in version control
+!.env.example

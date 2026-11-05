@@ -1,26 +1,28 @@
 "use client";
 
+import { channelValidationError, videoValidationError, youtubeChannelId, youtubeVideoId } from "../youtube";
+import { YouTubePlayer } from "../components/youtube-player";
 import Image from "next/image";
 import Link from "next/link";
 import { ChangeEvent, ReactNode, useCallback, useEffect, useState } from "react";
 import { ArrowLeft, Check, ChevronDown, ExternalLink, ImagePlus, LoaderCircle, LogOut, Plus, Save, Trash2, UploadCloud } from "lucide-react";
 import { defaultSiteContent, type SiteContent } from "../data";
 
-type Section = "overview" | "home" | "pages" | "supporting" | "programs" | "faculty" | "schedule" | "events" | "stories" | "gallery" | "media";
+type Section = "overview" | "home" | "pages" | "supporting" | "programs" | "faculty" | "schedule" | "events" | "stories" | "gallery" | "videos" | "media";
 type AdminGroup = "site" | "learning" | "calendar" | "stories" | "media";
 type MediaAsset = { id: string; name: string; contentType: string; size: number; createdAt?: string; src?: string };
 const sections: { id: Section; label: string; group: AdminGroup }[] = [
   { id: "overview", label: "Academy details", group: "site" }, { id: "home", label: "Home page", group: "site" }, { id: "pages", label: "Page heroes", group: "site" }, { id: "supporting", label: "More page copy", group: "site" },
   { id: "programs", label: "Programs", group: "learning" }, { id: "faculty", label: "Faculty", group: "learning" },
   { id: "schedule", label: "Class schedule", group: "calendar" }, { id: "events", label: "Events", group: "calendar" },
-  { id: "stories", label: "Student stories", group: "stories" }, { id: "gallery", label: "Gallery", group: "stories" }, { id: "media", label: "Media library", group: "media" },
+  { id: "stories", label: "Student stories", group: "stories" }, { id: "gallery", label: "Gallery", group: "stories" }, { id: "videos", label: "YouTube videos", group: "media" }, { id: "media", label: "Media library", group: "media" },
 ];
 const groups: { id: AdminGroup; label: string; description: string }[] = [
   { id: "site", label: "Site", description: "Identity and page copy" },
   { id: "learning", label: "Learning", description: "Programs and faculty" },
   { id: "calendar", label: "Calendar", description: "Classes and events" },
   { id: "stories", label: "Stories", description: "Stories and gallery" },
-  { id: "media", label: "Media", description: "Uploaded assets" },
+  { id: "media", label: "Media", description: "Videos and uploaded images" },
 ];
 
 const uid = (prefix: string) => `${prefix}-${globalThis.crypto?.randomUUID?.() ?? Date.now()}`;
@@ -68,6 +70,8 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
   }
 
   async function save() {
+    const videoError = channelValidationError(content.youtubeChannelId) ?? videoValidationError(content.videos);
+    if (videoError) { setMessage(videoError); return; }
     setSaving(true); setMessage("");
     try {
       const response = await fetch("/api/content", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ content }) });
@@ -200,6 +204,41 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
         {section === "gallery" && <Collection title="Gallery" addLabel="Add gallery image" onAdd={() => update((d) => d.galleryImages.unshift({ id: uid("gallery"), src: "/academy/gallery/gallery-01.webp", alt: "Academy performance", orientation: "landscape" }))}>
           <div className="admin-gallery-grid">{content.galleryImages.map((item, index) => <RecordCard key={item.id} title={item.alt} onDelete={() => confirmDelete("gallery item", () => update((d) => d.galleryImages.splice(index, 1)))}><div className="admin-image-preview"><Image src={item.src} alt="" fill sizes="260px" unoptimized /></div><FieldGrid><ImageField label="Image" value={item.src} onChange={(v) => update((d) => { d.galleryImages[index].src = v; })} upload={upload} /><Field label="Accessible description" value={item.alt} onChange={(v) => update((d) => { d.galleryImages[index].alt = v; })} /><SelectField label="Orientation" value={item.orientation} options={["landscape","portrait","square"]} onChange={(v) => update((d) => { d.galleryImages[index].orientation = v as typeof item.orientation; })} /></FieldGrid></RecordCard>)}</div>
         </Collection>}
+
+        {section === "videos" && <>
+          <AdminSection title="YouTube performances and livestreams" copy="Paste a YouTube video, Share, Shorts, or live-event link. Published videos appear on the Gallery page; drafts stay hidden. Enable embedding in YouTube Studio. Schedule livestreams on YouTube first, then paste the event’s video link here.">
+            <a href="/gallery#videos" target="_blank" rel="noreferrer">View videos on the website <ExternalLink size={16} /></a>
+          </AdminSection>
+          <AdminSection title="Automatic channel uploads" copy="Connect the academy’s channel once. YouTube keeps the uploads playlist current automatically. This does not automatically detect live broadcasts; add a livestream entry below to pin one here.">
+            <button type="button" className="admin-add" onClick={async () => {
+              setMessage("Connecting to YouTube…");
+              try {
+                const response = await fetch(`/api/youtube-channel?url=${encodeURIComponent(content.academy.youtube)}`);
+                const payload = await response.json() as { channelId?: string; error?: string };
+                if (!response.ok || !payload.channelId) throw new Error(payload.error ?? "Could not connect channel.");
+                update((d) => { d.youtubeChannelId = payload.channelId!; });
+                setMessage("Channel connected. Save changes to publish automatic uploads.");
+              } catch (error) { setMessage(error instanceof Error ? error.message : "Could not connect channel."); }
+            }}>Connect academy YouTube channel</button>
+            <Field label="YouTube channel ID or /channel/ URL" value={content.youtubeChannelId} onChange={(v) => update((d) => { d.youtubeChannelId = v; })} />
+            <p>Find your channel ID in YouTube Studio → Settings → Channel → Advanced settings → Manage YouTube account → Advanced settings. Leave empty to hide automatic uploads.</p>
+            {youtubeChannelId(content.youtubeChannelId) && <YouTubePlayer url="" title="Automatic uploads preview" playlistId={`UU${youtubeChannelId(content.youtubeChannelId)!.slice(2)}`} />}
+          </AdminSection>
+          <Collection title="Videos" addLabel="Add YouTube video" onAdd={() => update((d) => d.videos.unshift({ id: uid("video"), title: "New performance", url: "", description: "", kind: "performance", published: false }))}>
+            {content.videos.length === 0 && <p>Add your first performance or livestream using its YouTube link.</p>}
+            {content.videos.map((video, index) => <RecordCard key={video.id} title={video.title} onDelete={() => confirmDelete("video", () => update((d) => d.videos.splice(index, 1)))}>
+              <FieldGrid>
+                <Field label="Video title" value={video.title} onChange={(v) => update((d) => { d.videos[index].title = v; })} />
+                <Field label="YouTube video or livestream URL" type="url" value={video.url} onChange={(v) => update((d) => { d.videos[index].url = v; })} />
+                <Field wide multiline label="Description or broadcast time" value={video.description} onChange={(v) => update((d) => { d.videos[index].description = v; })} />
+                <SelectField label="Video type" value={video.kind} options={["performance", "livestream"]} onChange={(v) => update((d) => { d.videos[index].kind = v as typeof video.kind; })} />
+                <SelectField label="Visibility" value={video.published ? "published" : "draft"} options={["draft", "published"]} onChange={(v) => update((d) => { d.videos[index].published = v === "published"; })} />
+              </FieldGrid>
+              {youtubeVideoId(video.url) ? <YouTubePlayer url={video.url} title={video.title} /> : <p>Paste a complete HTTPS YouTube video link to preview the player.</p>}
+              <div className="video-order-actions"><button type="button" disabled={index === 0} onClick={() => update((d) => { [d.videos[index - 1], d.videos[index]] = [d.videos[index], d.videos[index - 1]]; })}>Move up</button><button type="button" disabled={index === content.videos.length - 1} onClick={() => update((d) => { [d.videos[index + 1], d.videos[index]] = [d.videos[index], d.videos[index + 1]]; })}>Move down</button></div>
+            </RecordCard>)}
+          </Collection>
+        </>}
 
         {section === "media" && <AdminSection title="Media library" copy="Upload high-quality images once, then copy their URL into any image field. Deleting an image does not automatically remove it from pages.">
           <label className="admin-upload"><UploadCloud /><strong>Upload image</strong><span>JPEG, PNG, WebP, or AVIF · maximum 12 MB</span><input type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; setMessage("Uploading image…"); try { await upload(file); setMessage("Image uploaded."); } catch (error) { setMessage(error instanceof Error ? error.message : "Upload failed."); } event.target.value = ""; }} /></label>

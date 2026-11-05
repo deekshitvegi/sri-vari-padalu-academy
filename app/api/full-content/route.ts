@@ -1,5 +1,6 @@
 import { getSiteContent, saveSiteContent } from "../../content-store";
 import { requireOwnerApi } from "../../admin-auth";
+import { channelValidationError, videoValidationError, youtubeChannelId } from "../../youtube";
 import type { SiteContent } from "../../data";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +22,13 @@ export async function PUT(request: Request) {
     if (!payload.content || !payload.content.academy || !Array.isArray(payload.content.managedPages) || !Array.isArray(payload.content.navigation)) {
       return Response.json({ error: "Invalid website structure." }, { status: 400 });
     }
+    const channelError = channelValidationError(payload.content.youtubeChannelId ?? "");
+    if (channelError) return Response.json({ error: channelError }, { status: 400 });
+    const videoError = videoValidationError(payload.content.videos ?? []);
+    if (videoError) return Response.json({ error: videoError }, { status: 400 });
+    const current = await getSiteContent();
+    payload.content.videos ??= current.videos;
+    payload.content.youtubeChannelId = payload.content.youtubeChannelId === undefined ? current.youtubeChannelId : youtubeChannelId(payload.content.youtubeChannelId) ?? "";
     await saveSiteContent(payload.content, owner.email);
     return Response.json({ content: payload.content });
   } catch (error) {

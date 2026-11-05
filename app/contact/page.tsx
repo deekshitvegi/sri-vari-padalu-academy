@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Camera, Mail, MapPin, Phone, Play } from "lucide-react";
-import { getSiteContent } from "../content-store";
+import { getPublicSiteContent } from "../content-store";
 import { BuilderPage, managedPageFor } from "../components/page-builder-renderer";
 import { ContactForm } from "../components/contact-form";
 import { PageHero, SectionHeading } from "../components/ui";
@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Contact", description: "Contact Sri 
 export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
-  const content = await getSiteContent();
+  const content = await getPublicSiteContent();
   const managed = managedPageFor(content, "contact");
   if (managed?.layout === "builder") return <BuilderPage page={managed} content={content} />;
   const { academy } = content;

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { SiteFrame } from "./components/site-frame";
-import { getSiteContent } from "./content-store";
+import { getPublicSiteContent } from "./content-store";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,11 +38,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 }
 
 async function RootLayoutContent({ children }: Readonly<{ children: React.ReactNode }>) {
-  const content = await getSiteContent();
+  const content = await getPublicSiteContent();
   return (
     <html lang="en">
       <body>
-        <SiteFrame content={content}>{children}</SiteFrame>
+        <SiteFrame content={{ academy: content.academy, header: content.header, footer: content.footer, navigation: content.navigation }}>{children}</SiteFrame>
       </body>
     </html>
   );

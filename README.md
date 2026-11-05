@@ -48,3 +48,35 @@ npm test
 ```
 
 The UI is designed for phone, tablet, laptop, desktop, reduced-motion, touch, and fine-pointer use.
+
+## YouTube performances and livestreams
+
+In `/admin`, choose **Media → YouTube videos**, then **Add YouTube video**.
+Paste the video's HTTPS YouTube link (Watch, Share, Shorts, or live-event links
+are supported), give it a title, and optionally add a description or broadcast
+time. Choose Performance or Livestream and set Visibility to Published, then
+**Save changes**. Published videos appear at `/gallery#videos`; drafts remain
+hidden. Move up/down changes their order, and Delete removes the website entry
+without deleting anything from YouTube. Older saved site content starts with
+an empty video collection.
+
+Create or schedule the broadcast on YouTube first, enable embedding, and use
+its individual video link. The website does not start broadcasts or detect live
+status. Public or unlisted embeddable videos work; YouTube privacy, age, regional,
+and embedding restrictions still apply. Visitors load the privacy-enhanced
+YouTube player on demand, then use its playback controls. A Watch on YouTube
+link is available if embedded playback is unavailable. No YouTube API key is
+required. Gallery feed blocks in the owner’s visual builder also show videos.
+
+For automatic uploads, use **Connect academy YouTube channel** in the same admin
+area, or paste its `UC…` channel ID, then save. The uploads playlist updates on
+YouTube automatically without an API key. The handle lookup reads public channel
+metadata and may require entering the channel ID manually if YouTube changes
+its page format or blocks access. Automatic live-status detection is separate;
+pin a scheduled broadcast using its individual video URL. Channel uploads
+embedding remains subject to YouTube availability and permissions.
+
+With the local development server running, `node tests/video-api-smoke.mjs`
+checks video persistence, draft privacy, automatic playlist configuration, both
+save APIs, and authentication. It uses temporary local records and restores the
+original content afterward.
