@@ -84,8 +84,9 @@ h1, h2, h3 { text-wrap: balance; }
 .image-reveal-hero { --reveal-x: 28%; --reveal-y: 48%; --reveal-size: 0px; position: relative; height: 100svh; min-height: 760px; max-height: 1100px; color: #f9f1e8; background: #241016; }
 .image-reveal-stage { position: relative; height: 100%; overflow: hidden; isolation: isolate; }
 .dancer-tableau { position: absolute; inset: 0; pointer-events: none; }
-.trio-figure { position: absolute; left: -3%; bottom: -8%; width: min(64vw, 790px); height: 90%; }
+.trio-figure { position: absolute; left: -3%; bottom: -16%; width: min(64vw, 860px); height: 116%; }
 .trio-figure img { object-fit: contain; object-position: center bottom; }
+.dancer-tableau-stone img { filter: grayscale(1) sepia(.2) brightness(1.15); }
 .dancer-tableau-live { mask-image: radial-gradient(circle calc(var(--reveal-size) / 2) at var(--reveal-x) var(--reveal-y), #000 0 75%, transparent 100%); }
 .image-reveal-aurora, .dancer-gaze-layer, .image-reveal-grain, .image-reveal-lens { display: none; }
 .image-reveal-shade { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 25%, #241016 60%); pointer-events: none; }
@@ -132,6 +133,7 @@ h1, h2, h3 { text-wrap: balance; }
 .archive-filmstrip { display: none; }
 .faculty-editorial { padding-block: 120px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 12%; }
 .faculty-stack { border-top: 1px solid var(--line); }
+.faculty-title .text-link { margin-top: 28px; }
 .faculty-row { min-height: 140px; display: grid; grid-template-columns: 24px 72px 1fr 20px; gap: 24px; align-items: center; border-bottom: 1px solid var(--line); }
 .faculty-row > span { color: var(--muted); font-size: .75rem; }
 .faculty-thumb { position: relative; width: 72px; height: 88px; overflow: hidden; }
@@ -387,7 +389,9 @@ h1, h2, h3 { text-wrap: balance; }
   .menu-toggle { margin-left: auto; }
   .image-reveal-hero { height: auto; min-height: 940px; max-height: none; }
   .image-reveal-stage { min-height: 940px; }
-  .trio-figure { left: -18%; bottom: auto; top: 56px; width: 105%; height: 520px; }
+  .trio-figure { left: -10%; bottom: auto; top: -48px; width: 120%; height: 740px; }
+  .dancer-tableau-live { mask-image: none; }
+  .dancer-tableau-stone { visibility: hidden; }
   .image-reveal-shade { background: linear-gradient(0deg, #241016 34%, transparent 62%); }
   .image-reveal-copy { left: 24px; right: 24px; top: auto; bottom: 52px; transform: none; }
   .image-reveal-copy h1 { font-size: clamp(3.2rem, 12vw, 4.3rem); }
