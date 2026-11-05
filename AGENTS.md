@@ -20,7 +20,8 @@ admin interface, and an owner-only visual design editor.
 
 - Use the existing checkout; create a worktree only if requested.
 - Use Node.js >=22.13.0 and install locked dependencies with npm ci.
-- Start development with npm run dev -- --port 9999. This includes local
+- Start development with npm run dev and verify the printed Local URL (normally
+  http://localhost:3000/). This includes local
   Cloudflare D1/R2 emulation and local administrator/owner identities.
 - Run npm run lint and npm test for applicable application changes.
 - Help the owner review visual changes using an available supported preview.

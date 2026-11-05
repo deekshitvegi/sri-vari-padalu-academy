@@ -1,6 +1,10 @@
 // Run against local development only: node tests/video-api-smoke.mjs
 import assert from 'node:assert/strict';
-const base = 'http://localhost:9999';
+const base = process.env.SMOKE_BASE_URL ?? 'http://localhost:3000';
+const target = new URL(base);
+if (target.protocol !== 'http:' || !['localhost', '127.0.0.1'].includes(target.hostname)) {
+  throw new Error('Run this persistence smoke check against a local development server only.');
+}
 const original = (await (await fetch(base + '/api/content')).json()).content;
 const content = structuredClone(original);
 const channel = 'UCabcdefghijklmnopqrstuv';

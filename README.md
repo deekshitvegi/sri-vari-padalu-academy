@@ -5,15 +5,17 @@ Multipage academy website with a durable content CMS, responsive visual page bui
 ## Local development
 
 ```bash
-npm install
-npm run dev -- --port 9999
+npm ci
+npm run dev
 ```
 
 Open:
 
-- Website: `http://localhost:9999/`
-- Content admin: `http://localhost:9999/admin`
-- Owner-only full design mode: `http://localhost:9999/fullyeditmode`
+- Website: `http://localhost:3000/`
+- Content admin: `http://localhost:3000/admin`
+- Owner-only full design mode: `http://localhost:3000/fullyeditmode`
+
+Use the Local URL printed by the development server if port 3000 is occupied.
 
 Localhost automatically uses the local administrator identity, so no password is needed locally.
 
@@ -44,10 +46,33 @@ Do not leave this empty for a public production site: an empty allowlist permits
 
 ```bash
 npm run lint
+npx tsc --noEmit
 npm test
 ```
 
-The UI is designed for phone, tablet, laptop, desktop, reduced-motion, touch, and fine-pointer use.
+The UI supports phone, tablet, laptop, desktop, reduced-motion, touch, and fine-pointer use.
+
+## Interactive visitor experience
+
+The floating navigation expands into one shared panel for Programs, Academy,
+and Explore. It responds to hover, click, keyboard focus, Arrow Down and Escape.
+Navigation labels, destinations and class thumbnails come from saved content.
+
+The homepage combines a pointer-controlled dancer portrait with scroll reveals
+and limited desktop parallax. The footer's **Pause animations** control remembers
+the visitor's choice, while system reduced-motion preferences take priority.
+
+At `/programs#schedule`, visitors can filter the saved timetable by discipline
+and day. Enquiry links carry the selected program into `/contact`. The form
+prepares an email draft for the visitor to open and send; it does not send mail.
+
+The photo gallery has animated orientation filters, result counts and a native
+lightbox with focus containment, arrow-key navigation, Escape and focus return.
+
+`app/globals.css` imports `app/public.css` and `app/editors.css`. Public design
+changes can therefore be made without restyling the content and design editors.
+`codex.md` records owner preferences, design references, implementation decisions
+and verification results for future sessions.
 
 ## YouTube performances and livestreams
 
@@ -79,4 +104,6 @@ embedding remains subject to YouTube availability and permissions.
 With the local development server running, `node tests/video-api-smoke.mjs`
 checks video persistence, draft privacy, automatic playlist configuration, both
 save APIs, and authentication. It uses temporary local records and restores the
-original content afterward.
+original content afterward. It defaults to port 3000. For another local port,
+set `SMOKE_BASE_URL` to the printed development-server URL. The script rejects
+non-local targets.
