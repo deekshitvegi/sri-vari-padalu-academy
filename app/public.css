@@ -87,7 +87,7 @@ h1, h2, h3 { text-wrap: balance; }
 .image-reveal-stage { position: relative; height: 100%; overflow: hidden; isolation: isolate; }
 .dancer-tableau { position: absolute; inset: 0; pointer-events: none; }
 .trio-figure { position: absolute; left: -3%; bottom: -16%; width: min(64vw, 860px); height: 116%; }
-.trio-figure img { object-fit: contain; object-position: center bottom; }
+.trio-figure img { object-fit: contain !important; object-position: center bottom; }
 .dancer-tableau-stone img { filter: grayscale(1) sepia(.2) brightness(1.15); }
 .dancer-tableau-live { mask-image: radial-gradient(circle calc(var(--reveal-size) / 2) at var(--reveal-x) var(--reveal-y), #000 0 75%, transparent 100%); }
 .image-reveal-aurora, .dancer-gaze-layer, .image-reveal-grain, .image-reveal-lens { display: none; }
@@ -193,6 +193,18 @@ h1, h2, h3 { text-wrap: balance; }
 .program-detail-copy li, .option-grid li { display: flex; align-items: center; gap: 12px; font-size: .9rem; }
 .program-detail-copy li svg, .option-grid li svg { width: 16px; color: var(--cyan); }
 .schedule-section { padding-block: 32px 104px; }
+.class-finder { margin-top: 40px; }
+.finder-controls { display: flex; align-items: end; gap: 24px; flex-wrap: wrap; padding: 28px; background: var(--surface); }
+.finder-controls label { display: grid; gap: 8px; flex: 1; min-width: 200px; }
+.finder-controls label > span { font-size: .8rem; }
+.finder-controls select { width: 100%; min-height: 48px; padding: 8px 16px; border: 1px solid #c4b8ac; background: var(--paper); color: var(--ink); }
+.finder-reset { min-height: 48px; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; font-size: .8rem; color: var(--cyan); }
+.finder-status { margin: 24px 0; color: var(--muted); font-size: .8rem; }
+.finder-results .schedule-grid { margin-top: 0; }
+.finder-empty { border: 1px solid var(--line); padding: 40px; }
+.finder-empty h3 { margin: 0; font: 32px/1.2 var(--display); }
+.finder-empty p { color: var(--muted); }
+.finder-enquire { margin-top: 32px; }
 .schedule-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
 .schedule-card { padding: 32px; }
 .schedule-day { color: var(--cyan); font-size: .9rem; margin: 0 0 24px; font-weight: 500; }
@@ -223,7 +235,7 @@ h1, h2, h3 { text-wrap: balance; }
 .lightbox[open] { animation: dialog-in 220ms var(--ease); }
 @keyframes dialog-in { from { opacity: 0; } to { opacity: 1; } }
 .lightbox-image { position: relative; width: min(80vw, 1400px); height: 78dvh; }
-.lightbox-image img { object-fit: contain; }
+.lightbox-image img { object-fit: contain !important; }
 .lightbox button { position: absolute; z-index: 2; width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid #7d6b72; border-radius: 50%; background: #2b2226; }
 .lightbox-close { top: 24px; right: 24px; }
 .lightbox-prev { left: 24px; top: 50%; }
@@ -263,6 +275,8 @@ h1, h2, h3 { text-wrap: balance; }
 .form-submit svg { width: 18px; }
 .form-note { display: flex; gap: 12px; font-size: .85rem; color: var(--cyan); }
 .form-note svg { width: 18px; }
+.contact-form label small { color: var(--muted); font-size: .7rem; }
+.email-draft { margin-top: 24px; padding-top: 8px; border-top: 1px solid var(--line); }
 .contact-cards { display: grid; }
 .contact-card { min-height: 104px; padding: 24px 0; display: flex; align-items: start; gap: 20px; border: 0; border-bottom: 1px solid var(--line); background: transparent; }
 .contact-card > svg { width: 20px; height: 24px; color: var(--cyan); }
