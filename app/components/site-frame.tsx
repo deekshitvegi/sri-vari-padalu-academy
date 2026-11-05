@@ -7,6 +7,7 @@ import { ArrowUpRight, Camera, Menu, Phone, Play, X } from "lucide-react";
 import type { NavigationItem, SiteContent } from "../data";
 import { SiteMotion } from "./site-motion";
 import { MotionToggle } from "./motion-toggle";
+import { MorphingNavigation } from "./morphing-navigation";
 
 function Brand({ header }: { header: SiteContent["header"] }) {
   return <Link className="brand" href="/" aria-label="Sri Vari Padalu Academy home">
@@ -29,7 +30,7 @@ function Navigation({ items, onNavigate, mobile = false }: { items: NavigationIt
   </nav>;
 }
 
-function Header({ content }: { content: Pick<SiteContent, "header" | "navigation"> }) {
+function Header({ content }: { content: Pick<SiteContent, "header" | "navigation" | "programs"> }) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -61,7 +62,7 @@ function Header({ content }: { content: Pick<SiteContent, "header" | "navigation
   return <header className="site-header">
     <div className="header-shell">
       <Brand header={content.header} />
-      <div className="desktop-only"><Navigation items={content.navigation} /></div>
+      <div className="desktop-only"><MorphingNavigation content={content} /></div>
       {content.header.showCta && <Link className="header-join" href={content.header.ctaHref}>{content.header.ctaLabel}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
       <button ref={toggleRef} className="menu-toggle" aria-label="Open menu" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(true)}><Menu aria-hidden="true" /></button>
     </div>
@@ -86,7 +87,7 @@ function Footer({ content }: { content: Pick<SiteContent, "academy" | "header" |
   </footer>;
 }
 
-export function SiteFrame({ children, content }: { children: React.ReactNode; content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation"> }) {
+export function SiteFrame({ children, content }: { children: React.ReactNode; content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation" | "programs"> }) {
   const pathname = usePathname();
   const progressRef = useRef<HTMLDivElement>(null);
   const adminRoute = pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/fullyeditmode";
