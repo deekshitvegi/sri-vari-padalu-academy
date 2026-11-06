@@ -6,6 +6,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, ChevronDown, CalendarDays, Images, Mail, Users, BookOpen, Home, X } from "lucide-react";
 import type { NavigationItem, SiteContent } from "../data";
+import { EnquiryLink } from "./enquiry-panel";
 
 type Panel = "classes" | "academy" | "explore";
 
@@ -74,7 +75,7 @@ export function MorphingNavigation({ content }: { content: Pick<SiteContent, "he
       onClick={(event) => { if (selection.active === panel.id && (event.detail === 0 || !window.matchMedia("(min-width: 621px) and (hover: hover)").matches)) close(); else open(panel.id); }}
       onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); open(panel.id); requestAnimationFrame(() => contentRef.current?.querySelector<HTMLAnchorElement>("a")?.focus()); } }}
     >{panel.label}<ChevronDown aria-hidden="true" /></button>)}
-      {content.header.showCta && <Link className="morph-contact" href={content.header.ctaHref} onClick={close}>{content.header.ctaLabel}<ArrowUpRight aria-hidden="true" /></Link>}
+      {content.header.showCta && (["/admissions", "/contact"].includes(content.header.ctaHref) ? <EnquiryLink className="morph-contact">{content.header.ctaLabel}<ArrowUpRight aria-hidden="true" /></EnquiryLink> : <Link className="morph-contact" href={content.header.ctaHref} onClick={close}>{content.header.ctaLabel}<ArrowUpRight aria-hidden="true" /></Link>)}
     </div>
     <div className="morph-panel-viewport" id="academy-nav-panel" aria-hidden={!selection.active} inert={!selection.active}>
       <div className="morph-panel-content" ref={contentRef} key={selection.displayed}>

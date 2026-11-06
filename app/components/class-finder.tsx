@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Clock3, RotateCcw } from "lucide-react";
 import type { ClassTiming, Program } from "../data";
 import { prefersReducedMotion } from "../motion";
+import { EnquiryLink } from "./enquiry-panel";
 
 export function ClassFinder({ programs, schedules }: { programs: Program[]; schedules: ClassTiming[] }) {
   const [program, setProgram] = useState("");
@@ -31,6 +32,6 @@ export function ClassFinder({ programs, schedules }: { programs: Program[]; sche
     <div ref={resultsRef} className="finder-results">
       {results.length === 0 ? <div className="finder-empty"><h3>Let’s find another time</h3><p>Try a different discipline or day, or ask the academy about the current options.</p><Link className="text-link" href={selected ? `/contact?program=${encodeURIComponent(selected.slug)}` : "/contact"}>Ask about availability<ArrowUpRight aria-hidden="true" /></Link></div> : <div className="schedule-grid">{results.map((schedule) => <article className="schedule-card liquid-glass" key={schedule.id}><h3 className="schedule-day">{schedule.days}</h3>{schedule.sessions.map(([level, time, form], index) => <div className="schedule-row" key={`${schedule.id}-${index}`}><span><Clock3 aria-hidden="true" />{time}</span><strong>{level}</strong><small>{form}</small></div>)}</article>)}</div>}
     </div>
-    {selected && results.length > 0 && <Link className="text-link finder-enquire" href={`/contact?program=${encodeURIComponent(selected.slug)}`}>Enquire about {selected.name}<ArrowUpRight aria-hidden="true" /></Link>}
+    {selected && results.length > 0 && <EnquiryLink className="text-link finder-enquire" programSlug={selected.slug}>Enquire about {selected.name}<ArrowUpRight aria-hidden="true" /></EnquiryLink>}
   </div>;
 }

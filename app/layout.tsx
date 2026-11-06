@@ -42,7 +42,7 @@ async function RootLayoutContent({ children }: Readonly<{ children: React.ReactN
   return (
     <html lang="en">
       <body>
-        <SiteFrame content={{ academy: content.academy, header: content.header, footer: content.footer, navigation: content.navigation, programs: content.programs }}>{children}</SiteFrame>
+        <SiteFrame content={{ academy: content.academy, header: content.header, footer: content.footer, navigation: content.navigation, programs: content.programs, classTimings: content.classTimings }}>{children}</SiteFrame>
       </body>
     </html>
   );

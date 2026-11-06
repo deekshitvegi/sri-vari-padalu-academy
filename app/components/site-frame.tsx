@@ -8,6 +8,7 @@ import type { SiteContent } from "../data";
 import { SiteMotion } from "./site-motion";
 import { MotionToggle } from "./motion-toggle";
 import { MorphingNavigation } from "./morphing-navigation";
+import { EnquiryProvider } from "./enquiry-panel";
 
 function Brand({ header }: { header: SiteContent["header"] }) {
   return <Link className="brand" href="/" aria-label="Sri Vari Padalu Academy home">
@@ -31,7 +32,7 @@ function Footer({ content }: { content: Pick<SiteContent, "academy" | "header" |
   </footer>;
 }
 
-export function SiteFrame({ children, content }: { children: React.ReactNode; content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation" | "programs"> }) {
+export function SiteFrame({ children, content }: { children: React.ReactNode; content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation" | "programs" | "classTimings"> }) {
   const pathname = usePathname();
   const progressRef = useRef<HTMLDivElement>(null);
   const adminRoute = pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/fullyeditmode";
@@ -51,11 +52,12 @@ export function SiteFrame({ children, content }: { children: React.ReactNode; co
     return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", update); };
   }, [pathname, adminRoute]);
 
-  return <>
+  const page = <>
     <a className="skip-link" href="#main-content">Skip to main content</a>
     {!adminRoute && <><div className="scroll-progress" ref={progressRef} aria-hidden="true" /><Header content={content} /></>}
     <main id="main-content" tabIndex={-1} key={pathname}>{children}</main>
     <SiteMotion />
     {!adminRoute && <Footer content={content} />}
   </>;
+  return adminRoute ? page : <EnquiryProvider academy={content.academy} programs={content.programs} schedules={content.classTimings}>{page}</EnquiryProvider>;
 }

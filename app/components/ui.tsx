@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import { EnquiryLink } from "./enquiry-panel";
 
 export function ButtonLink({
   href,
@@ -11,6 +12,10 @@ export function ButtonLink({
   children: React.ReactNode;
   secondary?: boolean;
 }) {
+  if (href === "/contact" || href.startsWith("/contact?")) {
+    const programSlug = new URLSearchParams(href.split("?")[1]).get("program") ?? undefined;
+    return <EnquiryLink className={`button-link ${secondary ? "is-secondary" : ""}`} programSlug={programSlug}><span>{children}</span><ArrowUpRight aria-hidden="true" /></EnquiryLink>;
+  }
   return (
     <Link href={href} className={`button-link ${secondary ? "is-secondary" : ""}`}>
       <span>{children}</span><ArrowUpRight />
