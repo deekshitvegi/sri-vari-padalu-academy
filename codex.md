@@ -38,6 +38,58 @@ decisions and outcomes without credentials or private runtime data.
 
 ## Implementation checkpoint
 
+### Further interaction revision, 2026-11-06
+
+The owner again said the site did not feel interactive. Do not treat the earlier
+discipline switcher and scroll entrances as acceptance of the overall result.
+The work now gives each main homepage section an explicit action and visible
+state change, while retaining the same supporting photography and saved content.
+
+- `EnquiryProvider` supplies a native modal drawer on public routes. Header
+  Enquire and the persistent Find your class action open it. Choose a discipline,
+  a saved class time (or ask for help), then visitor details and an enquiry review.
+  The final action opens an email draft; it never claims to send or book a class.
+  No enquiry details are stored in localStorage, D1 or an external service.
+- Class-option helpers filter by program/day and exclude independent practice
+  from attendable class choices. Tests cover cross-program filtering, stable
+  session IDs, missing schedules and safe email-draft encoding.
+- The homepage program cards switch their description, training highlights,
+  class count and enquiry in place. Faculty rows expand/collapse biographies.
+  The original archive photo opens in a full-size native dialog. The schedule
+  now filters by discipline/day; each time opens an enquiry with that exact batch.
+- The hero choices are beside the introduction rather than at the bottom of a
+  tall stage. It cycles every six seconds with visible pause/play and progress.
+  Manual tab, arrow, swipe or keyboard choices stop cycling. Keyboard focus and
+  modal focus stop it; leaving the viewport or hiding the tab suspends its timer.
+  Reduced motion and the persistent global pause disable the preview controls.
+  The selected Maps portrait remains the opening photo; no supporting photo
+  defaults or saved database fields were changed in this revision.
+- At 390×844, hero choices finish at about 526px and playback controls at 588px.
+  The enquiry drawer fits the phone width and keeps its body independently
+  scrollable. A mobile faculty selector clash was caught and fixed.
+
+Verified with real browser clicks: program panel switch, teacher disclosure,
+exact Kuchipudi batch carried into enquiry details, empty-name validation,
+review and encoded email draft, archive photo open/close, Escape and focus return.
+The hero advanced from Kuchipudi to Sangeetham after six seconds; pausing held
+its selection. End selected Sangeetham and Arrow Right wrapped to Bharatanatyam.
+Global Pause animations disabled the hero preview and showed Motion is paused.
+Desktop 1440×900, tablet 768×1024 and phone 390×844 have no horizontal overflow.
+All eight interior public routes were rechecked at phone width, with one enquiry
+launcher per page and no overflow. No console errors were reported. Lint,
+TypeScript, production build and eight tests pass. The enquiry, homepage and hero
+commits are `42da6d8`, `71684e2` and `b3e6a14`. The first two were published by
+normal Git push. Repeated local DNS failures blocked the last two pushes, so the
+connected GitHub service published their trees and commits with normal
+fast-forward ref updates and an expected-head check. Published tree hashes match
+the tested files. The unpublished local commit versions are retained on
+`codex/interactive-local-snapshot`; main is synchronized to the equivalent
+published history using imported commit objects verified against GitHub's hashes.
+No force push, remote change, or working-file reset was used.
+The Chrome DevTools browser was used for this pass because the installed in-app
+browser skill file was missing. Screenshots were inspected inline; that tool
+denied file output paths, so no new saved screenshot files are claimed.
+
 ### Owner revision after the first UI pass
 
 The owner rejected the large ivory brand card and said the result still felt
