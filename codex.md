@@ -38,6 +38,53 @@ decisions and outcomes without credentials or private runtime data.
 
 ## Implementation checkpoint
 
+### Responsive layout and hero simplification, 2026-11-07
+
+The owner said the site looked bad at some device ratios. While the audit was
+running, the owner supplied a screenshot of the hero and explicitly said it was
+congested with too many buttons. They also objected to inconsistent pictures:
+the first photo appeared on the right while the next disciplines filled the
+background. This latest feedback supersedes the automatic preview toolbar
+described in the November 6 checkpoint.
+
+The hero now has three text tabs and one main Find a class action. Removed its
+pause/play toolbar, progress bar, drag hint, arrow buttons, second action, counter
+and repeated large program title. There is no automatic rotation. All three
+photographs use one stable frame with object-fit contain, preserving their
+composition and position while switching. Click/tap, keyboard arrows/Home/End,
+native horizontal drag/swipe, photo transitions and program-aware enquiries
+remain. Phones stack the photo above the copy; wider layouts use two columns.
+The floating enquiry launcher is hidden on the homepage, whose fixed header
+already provides Enquire. Other photos and saved content were not replaced.
+
+The responsive audit reproduced clipped program labels at 621–768 pixels and
+an unnecessarily tall 820–928px hero in short phone landscape. The shared
+`app/responsive.css` now supplies fluid gutters/spacing, safe-area insets,
+content-sized grid tracks, earlier stacking of program/faculty/contact/schedule
+layouts, readable full-width program cards on narrow screens, and compact
+landscape enquiry/navigation controls. Inputs retain 16px text to avoid iOS
+focus zoom. Short drawers scroll their body while the close and phone controls
+remain visible. The hero's short-landscape height is now about 477px at 844×390,
+with no overlapping copy or image.
+
+Verification: 25 homepage viewports from 320×568 through 2560×1440, including
+620/621, 700/701 and 960/961 boundary pairs, plus 667×375 and 844×390 landscape.
+All eight interior routes were also checked at six sizes each (48 route/size
+checks). These checks found no horizontal overflow, clipped tested containers,
+or content beyond the viewport. The final observations are in ignored
+`.codex-local/responsive-audit-2026-11-07.json`. Screenshots were inspected inline.
+These viewport checks do not imply physical-device testing on every browser.
+
+Native browser interactions confirmed Kuchipudi and Sangeetham preserve the
+exact same 560×680 desktop frame; End selects Sangeetham and the class action
+opens its enquiry. A native mouse drag changed the photo to Kuchipudi. At
+667×375 the enquiry body scrolls within a 560×375 drawer, and the expanded
+navigation stays within the screen with its list scrollable. Escape closes both.
+No browser console errors were reported. Lint, production build, TypeScript and
+all eight tests pass. Hero simplification is commit `4ea91a3`; responsive layout
+fixes are `093e262`. Both were pushed normally to main. Keep the development
+server available at localhost:3000.
+
 ### Further interaction revision, 2026-11-06
 
 The owner again said the site did not feel interactive. Do not treat the earlier

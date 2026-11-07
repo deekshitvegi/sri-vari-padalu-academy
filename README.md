@@ -59,15 +59,16 @@ navigation. Those controls remain visible on phones; there is no separate logo
 card or hamburger-only version. It responds to hover, click, tap, Arrow Down and Escape.
 Navigation labels, destinations and class thumbnails come from saved content.
 
-The homepage opens with the owner's selected Maps portrait. Its discipline
-choices, playback controls and class action are visible beside the introduction.
-The preview advances every six seconds while visible, with a progress indicator
-and a pause button. Choosing a discipline, pressing an arrow or dragging/swiping
-the stage changes its photograph, caption and enquiry. Manual interaction stops
-automatic rotation. Keyboard users can use arrows, Home and End. Rotation also
-stops when focus enters the stage or an open dialog and suspends offscreen or in
-a hidden tab. The footer's **Pause animations** control remembers the visitor's
-choice, while system reduced-motion preferences take priority.
+The homepage opens with the owner's selected Maps portrait. A text selector
+changes discipline, and **Find a class** is the single main action. Every slide
+uses the same contained photo frame, so changing discipline preserves the layout
+and photograph composition. Phones stack the image and introduction; tablets
+and larger screens place them alongside each other. There is no automatic
+carousel or preview toolbar. Click/tap, swiping the photograph, and keyboard
+arrows, Home and End change the picture, caption and enquiry selection. These
+changes animate when motion is enabled. The footer's **Pause animations** control
+remembers the visitor's choice, while system reduced-motion preferences take
+priority.
 
 The homepage's program cards reveal descriptions, training highlights and class
 counts in place. Teacher rows expand their biographies. The performance photograph
@@ -75,7 +76,7 @@ opens at full size. The timetable filters by program and day; selecting a class
 passes that exact batch into the enquiry drawer. Existing supporting photographs
 are preserved.
 
-**Enquire** in the header and **Find your class** on public pages open a native
+**Enquire** in the header and **Find your class** on interior public pages open a native
 dialog with discipline, class-time and visitor-detail steps, followed by a review.
 Program and timetable links can start at the relevant step. Listed times come
 from saved content, excluding independent practice. The final action opens an
@@ -91,10 +92,17 @@ The photo gallery has animated orientation filters, result counts and a native
 lightbox with focus containment, arrow-key navigation, Escape and focus return.
 
 `app/globals.css` imports `app/public.css`, `app/navigation.css`, `app/stage.css`,
-`app/enquiry.css`, `app/interactive.css` and `app/editors.css`. Public design
+`app/enquiry.css`, `app/interactive.css`, `app/responsive.css` and `app/editors.css`. Public design
 changes can therefore be made without restyling the content and design editors.
 `codex.md` records owner preferences, design references, implementation decisions
 and verification results for future sessions.
+
+Responsive verification covers 25 homepage viewport sizes from 320 to 2560 pixels
+wide, including 621/701/961-pixel breakpoint boundaries and 667×375 / 844×390 phone
+landscape. All eight interior public routes were also checked at 320, 621, 768,
+960, 1024 and 844 pixels wide. Check text clipping, photo-frame stability, open
+navigation, enquiry scrolling and keyboard focus as well as page overflow.
+These are browser viewport checks, not certification on every physical device.
 
 ## YouTube performances and livestreams
 
