@@ -38,6 +38,23 @@ decisions and outcomes without credentials or private runtime data.
 
 ## Implementation checkpoint
 
+### Remove hero letterboxing, 2026-11-07
+
+The owner rejected the large blank bands in all three hero photographs and
+supplied screenshots of the portrait, Kuchipudi ensemble and Sangeetham group.
+This supersedes the contained-photo treatment below. The hero now uses one 16:9
+frame and object-fit cover for every slide. Removed the portrait aspect ratio
+and fixed phone/landscape frame heights that caused empty bands. The opening
+portrait uses object-position 50% 30% to keep the face and raised hands visible;
+the group images use a centered crop. No source photos or saved content changed.
+
+All three crops were inspected in the browser. The group performers remain
+visible and the portrait now shows an upper-body crop. Twenty-four slide/viewport
+checks across 320px phone, tablet, desktop and short landscape sizes confirmed
+the images fill their frames without page overflow. Click selection still
+updates the caption and program-aware class enquiry. Lint, build, TypeScript
+and all eight tests pass.
+
 ### Responsive layout and hero simplification, 2026-11-07
 
 The owner said the site looked bad at some device ratios. While the audit was

@@ -61,8 +61,9 @@ Navigation labels, destinations and class thumbnails come from saved content.
 
 The homepage opens with the owner's selected Maps portrait. A text selector
 changes discipline, and **Find a class** is the single main action. Every slide
-uses the same contained photo frame, so changing discipline preserves the layout
-and photograph composition. Phones stack the image and introduction; tablets
+fills the same 16:9 photo frame, so changing discipline preserves the layout
+without letterboxing. The opening portrait uses a crop focused on the dancer's
+face and hands. Phones stack the image and introduction; tablets
 and larger screens place them alongside each other. There is no automatic
 carousel or preview toolbar. Click/tap, swiping the photograph, and keyboard
 arrows, Home and End change the picture, caption and enquiry selection. These

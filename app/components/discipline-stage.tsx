@@ -53,9 +53,9 @@ export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallba
           onPointerDown={(event) => { pointerStart.current = { x: event.clientX, y: event.clientY }; event.currentTarget.setPointerCapture(event.pointerId); }}
           onPointerUp={endSwipe} onPointerCancel={() => { pointerStart.current = null; }}>
           <div className="discipline-photo-frame">
-            {programs.length ? programs.map((program, index) => <div key={program.id} className={"discipline-scene" + (active?.id === program.id ? " is-active" : "")} aria-hidden={active?.id !== program.id}>
+            {programs.length ? programs.map((program, index) => <div key={program.id} className={"discipline-scene" + (active?.id === program.id ? " is-active" : "") + (index === 0 && openingImage ? " is-opening" : "")} aria-hidden={active?.id !== program.id}>
               <Image src={index === 0 && openingImage ? openingImage : program.image} alt={index === 0 && openingImage ? "Academy performance portrait" : program.name + " at Sri Vari Padalu Academy"} fill priority={index === 0} loading={index === 0 ? undefined : "eager"} sizes="(max-width: 700px) 90vw, (max-width: 1100px) 46vw, 560px" draggable={false} unoptimized />
-            </div>) : <div className="discipline-scene is-active"><Image src={openingImage || fallbackImage} alt="Academy performance" fill priority sizes="(max-width: 700px) 90vw, 560px" unoptimized /></div>}
+            </div>) : <div className={"discipline-scene is-active" + (openingImage ? " is-opening" : "")}><Image src={openingImage || fallbackImage} alt="Academy performance" fill priority sizes="(max-width: 700px) 90vw, 560px" unoptimized /></div>}
           </div>
           <figcaption ref={captionRef} aria-live="polite">{active?.eyebrow ?? "Sri Vari Padalu Academy"}</figcaption>
         </figure>
