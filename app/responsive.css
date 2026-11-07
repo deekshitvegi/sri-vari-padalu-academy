@@ -1,0 +1,130 @@
+/* Shared sizing rules cover the gaps between phone, tablet and laptop layouts. */
+:root {
+  --page-gutter: max(clamp(16px,4vw,48px),env(safe-area-inset-left),env(safe-area-inset-right));
+  --shell: min(1280px,calc(100% - var(--page-gutter) * 2));
+  --section-space: clamp(56px,7.5vw,112px);
+  --header-clearance: 104px;
+  --header-top: 16px;
+}
+html { scroll-padding-top: var(--header-clearance); }
+main [id] { scroll-margin-top: var(--header-clearance); }
+.site-header { top: max(var(--header-top),env(safe-area-inset-top)); }
+.header-shell { width: min(760px,calc(100% - max(12px,env(safe-area-inset-left),env(safe-area-inset-right)) * 2)); }
+.morph-nav { max-height: calc(100dvh - max(var(--header-top),env(safe-area-inset-top)) * 2); display: flex; flex-direction: column; }
+.morph-bar { flex-shrink: 0; min-width: 0; }
+.morph-bar > .morph-brand { min-width: 0; white-space: normal; }
+.morph-panel-viewport { min-height: 0; flex-shrink: 1; }
+.morph-panel-heading { gap: 12px; }
+.morph-row > span:nth-child(2) { overflow-wrap: anywhere; }
+.morph-row-arrow { flex-shrink: 0; }
+.section-shell > *, .manifesto > *, .faculty-editorial > *, .schedule-preview > *, .contact-layout > *, .program-detail > *, .faculty-profile > *, .footer-grid > *, .faq-section > *, .story-chapters > * { min-width: 0; }
+.button-link { max-width: 100%; padding-block: 14px; line-height: 1.5; white-space: normal; }
+.button-link > span { min-width: 0; }
+.text-link { max-width: 100%; }
+.section-heading h2, .manifesto h2, .faculty-title h2, .archive-copy h2, .big-quote, .cta-glow h2, .footer-hero h2, .program-detail-copy h2, .faculty-profile h2 { overflow-wrap: break-word; }
+.manifesto, .faculty-editorial, .forms-ledger, .program-detail-list, .gallery-page-section, .event-archive, .story-journey, .contact-section, .admission-steps { padding-block: var(--section-space); }
+.program-stage { padding-block: var(--section-space); }
+.schedule-preview, .faculty-profiles, .admission-options, .video-section, .cta-section { padding-bottom: var(--section-space); }
+.program-detail, .faculty-profile { margin-bottom: var(--section-space); }
+.program-detail:last-child, .faculty-profile:last-child { margin-bottom: 0; }
+.page-hero { margin-top: var(--header-clearance); min-height: clamp(340px,55svh,560px); padding-block: clamp(48px,7vw,80px); }
+.page-hero-content h1 { font-size: clamp(2.4rem,5.8vw,5.6rem); overflow-wrap: break-word; }
+.program-band-label { min-width: 0; max-width: 100%; }
+.program-band-label strong { font-size: clamp(1.25rem,2.7vw,2.5rem); overflow-wrap: break-word; }
+.program-explorer-detail { gap: clamp(24px,5vw,64px); padding: clamp(24px,4vw,40px); }
+.program-explorer-detail > div { min-width: 0; }
+.faculty-row { grid-template-columns: 24px 72px minmax(0,1fr) 20px; }
+.faculty-row strong, .faculty-row small { overflow-wrap: anywhere; }
+.faculty-answer > div { padding-left: clamp(0px,8vw,120px); }
+.schedule-day-choice { flex-wrap: wrap; }
+.schedule-day-choice select { min-width: 0; max-width: 100%; }
+.schedule-session-choices > a > span { min-width: 0; }
+.schedule-session-choices strong, .schedule-session-choices small { overflow-wrap: break-word; }
+.finder-controls label { min-width: min(200px,100%); }
+.finder-controls select { min-width: 0; }
+.contact-form input, .contact-form select, .contact-form textarea, .enquiry-form input, .enquiry-form select, .enquiry-form textarea { min-width: 0; font-size: 1rem; }
+.contact-card strong, .footer-grid p, .footer-grid a, .brand-copy { overflow-wrap: anywhere; }
+.footer-grid { grid-template-columns: minmax(0,1.3fr) minmax(0,.7fr) minmax(0,1fr); gap: clamp(24px,5vw,80px); }
+.footer-bottom { flex-wrap: wrap; align-items: center; }
+.footer-action { white-space: normal; }
+.site-footer { padding-inline: max(var(--page-gutter),calc((100% - 1280px) / 2)); padding-bottom: max(80px,env(safe-area-inset-bottom)); }
+.enquiry-launcher { bottom: max(16px,env(safe-area-inset-bottom)); right: max(16px,env(safe-area-inset-right)); }
+body:has(.discipline-stage) .enquiry-launcher { display: none; }
+.enquiry-shell { min-height: 0; }
+.enquiry-body { min-height: 0; }
+.enquiry-top, .enquiry-progress, .enquiry-phone { flex-shrink: 0; }
+.enquiry-choices > button > span { min-width: 0; overflow-wrap: break-word; }
+.enquiry-panel { padding-top: env(safe-area-inset-top); }
+.lightbox-close { top: max(16px,env(safe-area-inset-top)); right: max(16px,env(safe-area-inset-right)); }
+
+@media (max-width: 960px) {
+  .schedule-preview, .contact-layout, .program-detail, .faculty-profile { grid-template-columns: minmax(0,1fr); gap: 40px; }
+  .schedule-visual { height: clamp(320px,65vw,560px); }
+  .schedule-preview-copy { max-width: 680px; }
+  .program-detail-image, .faculty-profile-image { min-height: 0; height: clamp(320px,65vw,560px); }
+  .program-detail:nth-child(even) .program-detail-image, .faculty-profile:nth-child(even) .faculty-profile-image { order: 0; }
+  .schedule-grid { grid-template-columns: minmax(0,1fr); }
+  .contact-form { padding: clamp(24px,4vw,40px); }
+  .contact-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; }
+  .story-chapters { grid-template-columns: minmax(0,1fr); gap: 48px; }
+  .story-chapter { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 32px; align-items: center; }
+  .story-chapter-image { height: clamp(300px,45vw,440px); }
+  .story-chapter-copy { padding-top: 0; }
+  .story-chapter-copy > svg { top: 0; }
+}
+@media (max-width: 760px) {
+  .program-explorer .program-bands { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .program-explorer .program-band { min-height: 180px; padding: 24px; }
+  .program-explorer .program-index { position: absolute; top: 16px; left: 24px; margin: 0; }
+  .program-explorer .program-band-label { max-width: calc(100% - 48px); }
+  .program-band-label strong { font-size: clamp(1.4rem,4.4vw,1.8rem); }
+  .program-band-label small { display: none; }
+  .program-explorer .program-arrow { position: absolute; bottom: 20px; right: 20px; margin: 0; }
+  .program-explorer-detail { grid-template-columns: minmax(0,1fr); }
+  .faq-section { grid-template-columns: minmax(0,1fr); gap: 32px; }
+  .footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .footer-grid > div:first-child { grid-column: 1/-1; }
+  .masonry { grid-template-columns: repeat(2,minmax(0,1fr)); grid-auto-rows: clamp(110px,20vw,160px); }
+}
+@media (max-width: 620px) {
+  :root { --header-clearance: 140px; --header-top: 10px; }
+  .morph-bar > .morph-brand { font-size: clamp(18px,5vw,21px); }
+  .section-heading h2, .manifesto h2, .faculty-title h2, .archive-copy h2, .big-quote, .cta-glow h2, .footer-hero h2 { font-size: clamp(2rem,8.5vw,3.3rem); }
+  .page-hero-content h1 { font-size: clamp(2.2rem,9.5vw,3.5rem); }
+  .program-explorer .program-band { padding: 20px; }
+  .program-explorer .program-index { left: 20px; }
+  .faculty-row { grid-template-columns: 56px minmax(0,1fr) 18px; }
+  .faculty-answer > div { padding-left: 0; }
+  .contact-cards, .field-grid, .story-chapter, .video-grid { grid-template-columns: minmax(0,1fr); }
+  .story-chapter { gap: 24px; }
+  .story-chapter-image { height: clamp(300px,85vw,440px); }
+  .steps-grid { grid-template-columns: minmax(0,1fr); }
+  .footer-bottom { align-items: start; }
+  .enquiry-launcher { width: 48px; height: 48px; min-height: 48px; padding: 0; justify-content: center; }
+  .enquiry-launcher span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  .enquiry-launcher > svg:last-child { display: none; }
+}
+@media (max-width: 380px) {
+  .footer-grid { grid-template-columns: minmax(0,1fr); }
+  .discipline-tabs { gap: 4px 12px; }
+  .discipline-tabs button { font-size: .8rem; }
+  .enquiry-progress { gap: 8px; }
+  .enquiry-progress li { flex-direction: column; align-items: start; gap: 6px; font-size: .72rem; }
+  .enquiry-summary { padding-right: 16px; }
+  .enquiry-summary button { position: static; width: fit-content; }
+}
+@media (max-height: 520px) {
+  :root { --header-top: 8px; }
+  .page-hero { min-height: 280px; padding-block: 40px; }
+  .page-hero-content h1 { font-size: clamp(2rem,4.5vw,3.2rem); }
+  .page-hero-content > p:last-child { font-size: .9rem; }
+  .scroll-cue { display: none; }
+  .enquiry-top { padding-block: 6px; }
+  .enquiry-progress { padding-block: 8px 12px; }
+  .enquiry-body { padding-block: 20px; }
+  .enquiry-phone { padding-block: 8px; }
+  .lightbox-image { height: calc(100dvh - 88px); }
+  .enquiry-launcher { width: 48px; height: 48px; min-height: 48px; padding: 0; justify-content: center; }
+  .enquiry-launcher span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  .enquiry-launcher > svg:last-child { display: none; }
+}
