@@ -191,15 +191,15 @@ export const faculty: FacultyMember[] = [
 ];
 
 export const classTimings: ClassTiming[] = [
-  { id: "bharatanatyam-weekdays", days: "Saturday · Monday · Tuesday", sessions: [["Batch 1", "4:30 PM – 5:30 PM", "Bharatanatyam"], ["Batch 2", "5:30 PM – 6:30 PM", "Bharatanatyam"], ["Own Practice", "After class hours", "Bharatanatyam"]] },
-  { id: "bharatanatyam-sunday", days: "Sunday", sessions: [["Batch 1", "10:30 AM – 11:30 AM", "Bharatanatyam"], ["Batch 2", "11:30 AM – 12:30 PM", "Bharatanatyam"], ["Own Practice", "After class hours", "Bharatanatyam"]] },
-  { id: "kuchipudi", days: "Saturday · Tuesday", sessions: [["Batch", "6:30 PM – 7:30 PM", "Kuchipudi"], ["Own Practice", "After class hours", "Kuchipudi"]] },
-  { id: "sangeetham-sunday", days: "Sunday", sessions: [["Batch", "9:30 AM – 10:30 AM", "Sangeetham"], ["Own Practice", "After class hours", "Sangeetham"]] },
-  { id: "sangeetham-weekdays", days: "Saturday · Monday", sessions: [["Batch", "5:30 PM – 7:30 PM", "Sangeetham"], ["Own Practice", "After class hours", "Sangeetham"]] },
+  { id: "bharatanatyam-weekdays", days: "Saturday · Monday · Tuesday", sessions: [["Batch 1", "4:30 to 5:30 PM", "Bharatanatyam"], ["Batch 2", "5:30 to 6:30 PM", "Bharatanatyam"], ["Own Practice", "After class hours", "Bharatanatyam"]] },
+  { id: "bharatanatyam-sunday", days: "Sunday", sessions: [["Batch 1", "10:30 to 11:30 AM", "Bharatanatyam"], ["Batch 2", "11:30 AM to 12:30 PM", "Bharatanatyam"], ["Own Practice", "After class hours", "Bharatanatyam"]] },
+  { id: "kuchipudi", days: "Saturday · Tuesday", sessions: [["Batch", "6:30 to 7:30 PM", "Kuchipudi"], ["Own Practice", "After class hours", "Kuchipudi"]] },
+  { id: "sangeetham-sunday", days: "Sunday", sessions: [["Batch", "9:30 to 10:30 AM", "Sangeetham"], ["Own Practice", "After class hours", "Sangeetham"]] },
+  { id: "sangeetham-weekdays", days: "Saturday · Monday", sessions: [["Batch", "5:30 to 7:30 PM", "Sangeetham"], ["Own Practice", "After class hours", "Sangeetham"]] },
 ];
 
 export const events: AcademyEvent[] = [
-  { id: "annual-day-2025", title: "Annual Day Ceremony", date: "July 8, 2025", time: "6:00 PM – 9:00 PM", venue: "Ravindra Bharathi Auditorium, Hyderabad", description: "Senior students presented their debut solo performances before a live audience.", type: "Performance" },
+  { id: "annual-day-2025", title: "Annual Day Ceremony", date: "July 8, 2025", time: "6:00 to 9:00 PM", venue: "Ravindra Bharathi Auditorium, Hyderabad", description: "Senior students presented their debut solo performances before a live audience.", type: "Performance" },
 ];
 
 const orientations: GalleryImage["orientation"][] = ["landscape", "landscape", "landscape", "square", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "landscape", "portrait", "portrait", "landscape", "portrait", "portrait", "portrait", "landscape", "landscape", "landscape"];

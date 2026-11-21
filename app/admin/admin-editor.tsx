@@ -184,7 +184,7 @@ export function AdminEditor({ adminName, local }: { adminName: string; local: bo
 
         {section === "schedule" && <Collection title="Class schedule" addLabel="Add schedule" onAdd={() => update((d) => d.classTimings.push({ id: uid("schedule"), days: "New day", sessions: [["Batch", "Time", "Program"]] }))}>
           {content.classTimings.map((item, index) => <RecordCard key={item.id} title={item.days} onDelete={() => confirmDelete("schedule", () => update((d) => d.classTimings.splice(index, 1)))}><FieldGrid>
-            <Field wide label="Days" value={item.days} onChange={(v) => update((d) => { d.classTimings[index].days = v; })} /><Field wide multiline label="Sessions — Batch | Time | Program (one per line)" value={item.sessions.map((session) => session.join(" | ")).join("\n")} onChange={(v) => update((d) => { d.classTimings[index].sessions = sessionLines(v); })} />
+            <Field wide label="Days" value={item.days} onChange={(v) => update((d) => { d.classTimings[index].days = v; })} /><Field wide multiline label="Sessions: Batch | Time | Program, one per line" value={item.sessions.map((session) => session.join(" | ")).join("\n")} onChange={(v) => update((d) => { d.classTimings[index].sessions = sessionLines(v); })} />
           </FieldGrid></RecordCard>)}
         </Collection>}
 

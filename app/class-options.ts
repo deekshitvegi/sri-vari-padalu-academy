@@ -14,5 +14,5 @@ export function classOptions(program: Program | undefined, schedules: ClassTimin
 
 export function enquiryDraft(email: string, details: { name: string; phone: string; program: string; experience: string; slot?: string; message: string }) {
   const body = `Name: ${details.name}\nPhone: ${details.phone}\nDiscipline: ${details.program}\nExperience: ${details.experience}\nPreferred class: ${details.slot || "Please help me choose a time"}\n\n${details.message}`;
-  return `mailto:${email}?subject=${encodeURIComponent(`Class enquiry — ${details.program}`)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${email}?subject=${encodeURIComponent(details.program === "General enquiry" ? "Class enquiry" : `${details.program} class enquiry`)}&body=${encodeURIComponent(body)}`;
 }

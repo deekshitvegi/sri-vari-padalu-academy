@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import { defaultSiteContent, type SiteContent } from "./data";
+import { withPlainDashes } from "./plain-dashes";
 
 type RuntimeBindings = { DB?: D1Database; MEDIA?: R2Bucket };
 const CONTENT_ID = "primary";
@@ -89,8 +90,8 @@ function mergeContent(saved: Partial<SiteContent>): SiteContent {
   };
 }
 
-/** Keep unpublished videos out of public RSC payloads, including dev metadata. */
+/** Keep unpublished videos out of public RSC payloads, including dev metadata. Public text never shows em-dashes. */
 export async function getPublicSiteContent(): Promise<SiteContent> {
   const content = await getSiteContent();
-  return { ...content, videos: content.videos.filter((video) => video.published) };
+  return withPlainDashes({ ...content, videos: content.videos.filter((video) => video.published) });
 }
