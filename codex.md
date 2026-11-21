@@ -36,7 +36,56 @@ decisions and outcomes without credentials or private runtime data.
   rounded active items, and smooth changes between menu sections. Adapt the
   morphing mega-menu interaction to the academy rather than copying its labels.
 
+## Owner requests, 2026-11-21
+
+- Open a preview of the project as an artifact. Cloud localhost is not
+  reachable by the owner, so full-page desktop (1440px) and phone (390px)
+  captures of all nine public pages were published as a private claude.ai
+  artifact with a before/after switch.
+- Remove em-dashes from the site.
+- "Most of the site still looks like AI slop." Remove it. The owner still wants
+  the interactive navigation, hero switcher, enquiry drawer and motion.
+
 ## Implementation checkpoint
+
+### Plain copy and temple silk identity, 2026-11-21
+
+Work is on branch `claude/vibrant-wright-wrtnt6` (the cloud session's branch),
+not `main`.
+
+- Em-dashes: time ranges now read "4:30 to 5:30 PM"; the enquiry email subject
+  is "Kuchipudi class enquiry". `app/plain-dashes.ts` rewrites any em/en
+  dashes in saved content on public reads (ranges become "to", asides become
+  commas). Zero dashes render on any public page or /admin.
+- Copy: slogan headings ("Tradition is a living language.", "Experience,
+  passed forward.", "Grace. Rhythm. Devotion."), dot-separated triads
+  ("Raga · Tala · Voice") and journey language were replaced with plain facts
+  about programs, teachers, times and how to join. No new claims, fees,
+  reviews or events were added. Nav label "Stories" is now "How we teach",
+  because that page has no student stories.
+- Saved content: `app/legacy-copy.ts` lists every earlier default value from
+  git history (87 text fields). Saved text matching one is upgraded to the
+  current default; owner-written text and all image fields are untouched.
+- Removed templated patterns: 01/02/03 counters (admissions keeps real step
+  numbers), a label above every heading, the slogan CTA block at the bottom of
+  every inner page (homepage keeps one; the footer has one enquiry link), the
+  giant footer heading, Scroll cues, the scroll progress bar, the floating
+  "Find your class" pill (it covered content; header Enquire opens the same
+  drawer), the stat card on the schedule photo and decorative icons.
+- Visual identity: near-white paper, maroon and zari gold, kumkum red buttons;
+  self-hosted Spectral headings and Hind text; smaller headings with normal
+  tracking; one ornament, a stepped gopuram temple border under the homepage
+  opening and at the top of the footer. Layout, navigation behaviour, photos
+  and animations are unchanged.
+
+Verification: lint, TypeScript, production build and 14 tests pass (new tests
+cover the dash rewriter, legacy copy upgrade and day lists). Thirty browser
+interaction checks pass at 1440×900 and 390×844 (nav panels and Escape, hero
+tabs, Find a class into the class-time step, chosen batch carried into the
+email draft, program explorer, teacher rows, schedule day filter, footer and
+admissions enquiry links, gallery lightbox, no console errors). No horizontal
+overflow or clipped headings/buttons on all nine routes at 320, 390, 621,
+768, 1024, 1440 and 844×390.
 
 ### Remove hero letterboxing, 2026-11-07
 
@@ -300,7 +349,7 @@ identified as a floating Morphing Mega Menu and adapted independently.
 
 The first review found oversized, tightly tracked uppercase headings, glass
 surfaces on nearly every section, strong decorative effects, and vague calls to
-action. Preserve the academy identity, burgundy/cream palette, dancer reveal,
+action. Preserve the academy identity (now maroon and gold, see 2026-11-21), dancer reveal,
 real academy photographs, content editing, and all public routes.
 
 The approved implementation request supports a warm editorial direction:

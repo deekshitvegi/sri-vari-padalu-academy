@@ -77,8 +77,8 @@ opens at full size. The timetable filters by program and day; selecting a class
 passes that exact batch into the enquiry drawer. Existing supporting photographs
 are preserved.
 
-**Enquire** in the header and **Find your class** on interior public pages open a native
-dialog with discipline, class-time and visitor-detail steps, followed by a review.
+**Enquire** in the header, the homepage **Find a class** button and the footer's enquiry
+link open a native dialog with discipline, class-time and visitor-detail steps, followed by a review.
 Program and timetable links can start at the relevant step. Listed times come
 from saved content, excluding independent practice. The final action opens an
 email draft for the visitor to send. It does not send mail or confirm a booking.
@@ -91,6 +91,17 @@ through its query string. It also prepares an email draft.
 
 The photo gallery has animated orientation filters, result counts and a native
 lightbox with focus containment, arrow-key navigation, Escape and focus return.
+
+Public copy avoids em-dashes. Public pages rewrite any dashes found in saved
+content (`app/plain-dashes.ts`), so time ranges read "4:30 to 5:30 PM". Saved
+text that still matches an earlier default is upgraded to the current default
+wording when content is read (`app/legacy-copy.ts`); text written in the editor
+and all image choices are kept. When default wording changes again, add the old
+value to that list.
+
+Spectral (headings) and Hind (text) are self-hosted through `@fontsource`
+packages imported in `app/layout.tsx`. Colours are tokens at the top of
+`app/public.css`.
 
 `app/globals.css` imports `app/public.css`, `app/navigation.css`, `app/stage.css`,
 `app/enquiry.css`, `app/interactive.css`, `app/responsive.css` and `app/editors.css`. Public design
