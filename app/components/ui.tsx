@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import type { SiteContent } from "../data";
 import { EnquiryLink } from "./enquiry-panel";
 
 export function ButtonLink({
@@ -18,7 +19,7 @@ export function ButtonLink({
   }
   return (
     <Link href={href} className={`button-link ${secondary ? "is-secondary" : ""}`}>
-      <span>{children}</span><ArrowUpRight />
+      <span>{children}</span><ArrowUpRight aria-hidden="true" />
     </Link>
   );
 }
@@ -65,41 +66,23 @@ export function PageHero({
       <div className="page-hero-content" data-reveal>
         {eyebrow && <p className="kicker">{eyebrow}</p>}
         <h1>{title}</h1>
-        <p>{copy}</p>
+        {copy && <p>{copy}</p>}
       </div>
-      <a className="scroll-cue liquid-glass" href="#page-content"><ArrowDown /> Scroll</a>
     </section>
   );
 }
 
-export function CTA({
-  eyebrow = "Begin your journey",
-  title = "Let the first step become a story.",
-  copy = "Explore a classical arts education shaped with patience, precision, and care.",
-  ctaLabel = "Explore admissions",
-  ctaHref = "/admissions",
-  content,
-}: {
-  eyebrow?: string;
-  title?: string;
-  copy?: string;
-  ctaLabel?: string;
-  ctaHref?: string;
-  content?: { eyebrow: string; title: string; copy: string; label?: string; href?: string };
-}) {
-  const resolved = content ? {
-    eyebrow: eyebrow === "Begin your journey" ? content.eyebrow : eyebrow,
-    title: title === "Let the first step become a story." ? content.title : title,
-    copy: copy === "Explore a classical arts education shaped with patience, precision, and care." ? content.copy : copy,
-  } : { eyebrow, title, copy };
+/** The homepage closes with the editable call to action; other pages rely on the footer's enquiry link. */
+export function CTA({ content }: { content: SiteContent["cta"] }) {
   return (
     <section className="cta-section section-shell">
-      <div className="cta-glow liquid-glass" data-reveal>
-        {resolved.eyebrow && <p className="kicker">{resolved.eyebrow}</p>}
-        <h2>{resolved.title}</h2>
-        <p>{resolved.copy}</p>
-        <ButtonLink href={content?.href ?? ctaHref}>{content?.label ?? ctaLabel}</ButtonLink>
-        <ArrowRight className="cta-watermark" />
+      <div className="cta-glow" data-reveal>
+        <div>
+          {content.eyebrow && <p className="kicker">{content.eyebrow}</p>}
+          <h2>{content.title}</h2>
+          {content.copy && <p>{content.copy}</p>}
+        </div>
+        <ButtonLink href={content.href}>{content.label}</ButtonLink>
       </div>
     </section>
   );

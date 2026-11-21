@@ -11,13 +11,13 @@ import { EnquiryLink } from "./enquiry-panel";
 type Panel = "classes" | "academy" | "explore";
 
 const descriptions: Record<string, string> = {
-  "/": "Back to the beginning",
-  "/about": "Our school and teaching approach",
-  "/faculty": "Meet the teachers behind the tradition",
-  "/testimonials": "The learning journey, step by step",
-  "/gallery": "Photographs, performances and films",
-  "/events": "The academy’s performance archive",
-  "/contact": "A conversation about your first class",
+  "/": "Home page",
+  "/about": "Who we are and how classes run",
+  "/faculty": "The academy’s three teachers",
+  "/testimonials": "From first classes to the stage",
+  "/gallery": "Photos and videos",
+  "/events": "Past performances",
+  "/contact": "Phone, email, address and map",
 };
 
 function Row({ item, close }: { item: NavigationItem; close: () => void }) {
@@ -79,10 +79,10 @@ export function MorphingNavigation({ content }: { content: Pick<SiteContent, "he
     </div>
     <div className="morph-panel-viewport" id="academy-nav-panel" aria-hidden={!selection.active} inert={!selection.active}>
       <div className="morph-panel-content" ref={contentRef} key={selection.displayed}>
-        <div className="morph-panel-heading"><span>{selection.displayed === "classes" ? "Find your discipline" : selection.displayed === "academy" ? "Inside the academy" : "Life beyond the classroom"}</span><button className="morph-panel-close" aria-label="Close navigation" onClick={() => { const trigger = selection.active && buttons.current[selection.active]; close(); if (trigger) trigger.focus(); }}><X aria-hidden="true" /></button></div>
+        <div className="morph-panel-heading"><span>{selection.displayed === "classes" ? "Programs and class times" : selection.displayed === "academy" ? "About the academy" : "Gallery, events and contact"}</span><button className="morph-panel-close" aria-label="Close navigation" onClick={() => { const trigger = selection.active && buttons.current[selection.active]; close(); if (trigger) trigger.focus(); }}><X aria-hidden="true" /></button></div>
         {selection.displayed === "classes" ? <>
           {content.programs.map((program) => <Link className="morph-row" key={program.id} href={`/programs#${program.slug}`} onClick={close}><span className="morph-row-image"><Image src={program.image} alt="" fill sizes="52px" unoptimized /></span><span><strong>{program.name}</strong><small>{program.eyebrow}</small></span><ArrowUpRight className="morph-row-arrow" aria-hidden="true" /></Link>)}
-          {programsLink && <Link className="morph-panel-footer" href="/programs#schedule" onClick={close}>View class timings<ArrowUpRight aria-hidden="true" /></Link>}
+          {programsLink && <Link className="morph-panel-footer" href="/programs#schedule" onClick={close}>All class times<ArrowUpRight aria-hidden="true" /></Link>}
         </> : (selection.displayed === "academy" ? academy : explore).map((item) => <Row item={item} close={close} key={item.id} />)}
       </div>
     </div>

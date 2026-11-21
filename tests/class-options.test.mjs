@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classOptions, enquiryDraft } from "../app/class-options.ts";
+import { classLabel, classOptions, dayList, enquiryDraft } from "../app/class-options.ts";
 
 const program = { name: "Kuchipudi" };
 const schedules = [
@@ -20,4 +20,11 @@ test("enquiry draft safely encodes user text and carries the actual selected cla
   assert.match(draft.searchParams.get("body"), /Tuesday · 6:30 PM/);
   assert.match(draft.searchParams.get("body"), /A & B/);
   assert.match(enquiryDraft("academy@example.com", { ...details, slot: "" }), /Please%20help%20me%20choose/);
+});
+test("day lists and class labels read as plain sentences", () => {
+  assert.equal(dayList("Saturday · Monday · Tuesday"), "Saturday, Monday and Tuesday");
+  assert.equal(dayList("Saturday · Tuesday"), "Saturday and Tuesday");
+  assert.equal(dayList(" Sunday "), "Sunday");
+  assert.equal(dayList("Monday, Wednesday"), "Monday and Wednesday");
+  assert.equal(classLabel({ id: "x", days: "Saturday · Tuesday", time: "6:30 to 7:30 PM", level: "Batch" }), "Saturday and Tuesday, 6:30 to 7:30 PM (Batch)");
 });

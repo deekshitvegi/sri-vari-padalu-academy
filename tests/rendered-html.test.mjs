@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("keeps navigation, motion, and imagery production-ready", async () => {
   const [frame, navigation, css, data] = await Promise.all([
-    readFile(new URL("../app/components/site-frame.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/site-motion.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/morphing-navigation.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/public.css", import.meta.url), "utf8"),
     readFile(new URL("../app/data.ts", import.meta.url), "utf8"),

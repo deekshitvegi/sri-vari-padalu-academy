@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Clock3, RotateCcw } from "lucide-react";
 import type { ClassTiming, Program } from "../data";
+import { dayList } from "../class-options";
 import { prefersReducedMotion } from "../motion";
 import { EnquiryLink } from "./enquiry-panel";
 
@@ -28,9 +29,9 @@ export function ClassFinder({ programs, schedules }: { programs: Program[]; sche
       <label><span>Day of the week</span><select value={day} onChange={(event) => setDay(event.target.value)}><option value="">Any day</option>{days.map((value) => <option key={value}>{value}</option>)}</select></label>
       {(program || day) && <button className="finder-reset" onClick={() => { setProgram(""); setDay(""); }}><RotateCcw size={16} aria-hidden="true" />Reset filters</button>}
     </div>
-    <p className="finder-status" role="status">{results.length === 0 ? "No matching schedules" : `${results.length} ${results.length === 1 ? "schedule" : "schedules"} available to explore`}</p>
+    <p className="finder-status" role="status">{results.length === 0 ? "No matching classes" : `${results.length} ${results.length === 1 ? "schedule" : "schedules"}`}</p>
     <div ref={resultsRef} className="finder-results">
-      {results.length === 0 ? <div className="finder-empty"><h3>Let’s find another time</h3><p>Try a different discipline or day, or ask the academy about the current options.</p><Link className="text-link" href={selected ? `/contact?program=${encodeURIComponent(selected.slug)}` : "/contact"}>Ask about availability<ArrowUpRight aria-hidden="true" /></Link></div> : <div className="schedule-grid">{results.map((schedule) => <article className="schedule-card liquid-glass" key={schedule.id}><h3 className="schedule-day">{schedule.days}</h3>{schedule.sessions.map(([level, time, form], index) => <div className="schedule-row" key={`${schedule.id}-${index}`}><span><Clock3 aria-hidden="true" />{time}</span><strong>{level}</strong><small>{form}</small></div>)}</article>)}</div>}
+      {results.length === 0 ? <div className="finder-empty"><h3>No classes match these filters</h3><p>Try a different discipline or day, or ask the academy about other times.</p><Link className="text-link" href={selected ? `/contact?program=${encodeURIComponent(selected.slug)}` : "/contact"}>Ask about availability<ArrowUpRight aria-hidden="true" /></Link></div> : <div className="schedule-grid">{results.map((schedule) => <article className="schedule-card" key={schedule.id}><h3 className="schedule-day">{dayList(schedule.days)}</h3>{schedule.sessions.map(([level, time, form], index) => <div className="schedule-row" key={`${schedule.id}-${index}`}><span><Clock3 aria-hidden="true" />{time}</span><strong>{level}</strong><small>{form}</small></div>)}</article>)}</div>}
     </div>
     {selected && results.length > 0 && <EnquiryLink className="text-link finder-enquire" programSlug={selected.slug}>Enquire about {selected.name}<ArrowUpRight aria-hidden="true" /></EnquiryLink>}
   </div>;

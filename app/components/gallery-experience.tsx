@@ -46,10 +46,10 @@ export function GalleryExperience({ compact = false, galleryImages }: { compact?
       <div className="gallery-filters" role="group" aria-label="Filter gallery by orientation">{filters.map((item) => <button key={item} className={filter === item ? "active" : ""} aria-pressed={filter === item} onClick={() => { setFilter(item); setActive(null); }}>{item === "all" ? "All photographs" : item}</button>)}</div>
       <p className="gallery-status" role="status">{images.length} {images.length === 1 ? "photograph" : "photographs"}</p>
     </>}
-    {images.length === 0 && <p className="empty-state">No photographs in this collection yet. Choose another filter to keep exploring.</p>}
+    {images.length === 0 && <p className="empty-state">No photographs match this filter.</p>}
     <div className={`masonry ${compact ? "compact" : ""}`} ref={gridRef}>{images.map((image, index) => <button className={`gallery-tile ${image.orientation}`} key={image.id} onClick={() => setActive(index)} aria-label={`Open ${image.alt}`}>
       <Image src={image.src} alt={image.alt} fill sizes="(max-width: 620px) 50vw, 33vw" unoptimized />
-      <span className="gallery-overlay" aria-hidden="true"><small>{String(index + 1).padStart(2, "0")}</small><ZoomIn /></span>
+      <span className="gallery-overlay" aria-hidden="true"><ZoomIn /></span>
     </button>)}</div>
     <dialog className="lightbox" ref={dialogRef} aria-label="Gallery lightbox" onClose={() => setActive(null)} onKeyDown={(event) => {
       if (event.key === "ArrowRight") { event.preventDefault(); next(1); }

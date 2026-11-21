@@ -33,9 +33,9 @@ main [id] { scroll-margin-top: var(--header-clearance); }
 .program-band-label strong { font-size: clamp(1.25rem,2.7vw,2.5rem); overflow-wrap: break-word; }
 .program-explorer-detail { gap: clamp(24px,5vw,64px); padding: clamp(24px,4vw,40px); }
 .program-explorer-detail > div { min-width: 0; }
-.faculty-row { grid-template-columns: 24px 72px minmax(0,1fr) 20px; }
+.faculty-row { grid-template-columns: 72px minmax(0,1fr) 20px; }
 .faculty-row strong, .faculty-row small { overflow-wrap: anywhere; }
-.faculty-answer > div { padding-left: clamp(0px,8vw,120px); }
+.faculty-answer > div { padding-left: 96px; }
 .schedule-day-choice { flex-wrap: wrap; }
 .schedule-day-choice select { min-width: 0; max-width: 100%; }
 .schedule-session-choices > a > span { min-width: 0; }
@@ -47,9 +47,7 @@ main [id] { scroll-margin-top: var(--header-clearance); }
 .footer-grid { grid-template-columns: minmax(0,1.3fr) minmax(0,.7fr) minmax(0,1fr); gap: clamp(24px,5vw,80px); }
 .footer-bottom { flex-wrap: wrap; align-items: center; }
 .footer-action { white-space: normal; }
-.site-footer { padding-inline: max(var(--page-gutter),calc((100% - 1280px) / 2)); padding-bottom: max(80px,env(safe-area-inset-bottom)); }
-.enquiry-launcher { bottom: max(16px,env(safe-area-inset-bottom)); right: max(16px,env(safe-area-inset-right)); }
-body:has(.discipline-stage) .enquiry-launcher { display: none; }
+.footer-inner { padding-inline: max(var(--page-gutter),calc((100% - 1280px) / 2)); padding-bottom: max(24px,env(safe-area-inset-bottom)); }
 .enquiry-shell { min-height: 0; }
 .enquiry-body { min-height: 0; }
 .enquiry-top, .enquiry-progress, .enquiry-phone { flex-shrink: 0; }
@@ -75,7 +73,6 @@ body:has(.discipline-stage) .enquiry-launcher { display: none; }
 @media (max-width: 760px) {
   .program-explorer .program-bands { grid-template-columns: minmax(0,1fr); gap: 16px; }
   .program-explorer .program-band { min-height: 180px; padding: 24px; }
-  .program-explorer .program-index { position: absolute; top: 16px; left: 24px; margin: 0; }
   .program-explorer .program-band-label { max-width: calc(100% - 48px); }
   .program-band-label strong { font-size: clamp(1.4rem,4.4vw,1.8rem); }
   .program-band-label small { display: none; }
@@ -92,17 +89,13 @@ body:has(.discipline-stage) .enquiry-launcher { display: none; }
   .section-heading h2, .manifesto h2, .faculty-title h2, .archive-copy h2, .big-quote, .cta-glow h2, .footer-hero h2 { font-size: clamp(2rem,8.5vw,3.3rem); }
   .page-hero-content h1 { font-size: clamp(2.2rem,9.5vw,3.5rem); }
   .program-explorer .program-band { padding: 20px; }
-  .program-explorer .program-index { left: 20px; }
   .faculty-row { grid-template-columns: 56px minmax(0,1fr) 18px; }
   .faculty-answer > div { padding-left: 0; }
   .contact-cards, .field-grid, .story-chapter, .video-grid { grid-template-columns: minmax(0,1fr); }
   .story-chapter { gap: 24px; }
   .story-chapter-image { height: clamp(300px,85vw,440px); }
-  .steps-grid { grid-template-columns: minmax(0,1fr); }
+  .steps-list { grid-template-columns: minmax(0,1fr); }
   .footer-bottom { align-items: start; }
-  .enquiry-launcher { width: 48px; height: 48px; min-height: 48px; padding: 0; justify-content: center; }
-  .enquiry-launcher span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-  .enquiry-launcher > svg:last-child { display: none; }
 }
 @media (max-width: 380px) {
   .footer-grid { grid-template-columns: minmax(0,1fr); }
@@ -118,13 +111,9 @@ body:has(.discipline-stage) .enquiry-launcher { display: none; }
   .page-hero { min-height: 280px; padding-block: 40px; }
   .page-hero-content h1 { font-size: clamp(2rem,4.5vw,3.2rem); }
   .page-hero-content > p:last-child { font-size: .9rem; }
-  .scroll-cue { display: none; }
   .enquiry-top { padding-block: 6px; }
   .enquiry-progress { padding-block: 8px 12px; }
   .enquiry-body { padding-block: 20px; }
   .enquiry-phone { padding-block: 8px; }
   .lightbox-image { height: calc(100dvh - 88px); }
-  .enquiry-launcher { width: 48px; height: 48px; min-height: 48px; padding: 0; justify-content: center; }
-  .enquiry-launcher span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
-  .enquiry-launcher > svg:last-child { display: none; }
 }
