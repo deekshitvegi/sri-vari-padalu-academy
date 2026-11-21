@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import { defaultSiteContent, type SiteContent } from "./data";
+import { upgradeDefaultCopy } from "./legacy-copy";
 import { withPlainDashes } from "./plain-dashes";
 
 type RuntimeBindings = { DB?: D1Database; MEDIA?: R2Bucket };
@@ -37,7 +38,7 @@ export async function getSiteContent(): Promise<SiteContent> {
     await ensureContentTables(db);
     const row = await db.prepare("SELECT content FROM site_content WHERE id = ?").bind(CONTENT_ID).first<{ content: string }>();
     if (!row) return structuredClone(defaultSiteContent);
-    return cleanEncoding(mergeContent(JSON.parse(row.content) as Partial<SiteContent>));
+    return upgradeDefaultCopy(cleanEncoding(mergeContent(JSON.parse(row.content) as Partial<SiteContent>)), defaultSiteContent);
   } catch {
     return structuredClone(defaultSiteContent);
   }

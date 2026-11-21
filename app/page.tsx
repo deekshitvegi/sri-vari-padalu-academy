@@ -19,7 +19,7 @@ export default async function Home() {
     <DisciplineStage programs={programs} eyebrow={home.heroEyebrow} title={home.heroTitle} accent={home.heroAccent} copy={home.heroCopy} fallbackImage={home.archiveImage} openingImage={home.realDancerImage} />
 
     <section id="introduction" className="manifesto section-shell">
-      <div><p className="kicker">{home.manifestoEyebrow}</p><h2>{home.manifestoTitle}<br /><span>{home.manifestoAccent}</span></h2></div>
+      <div>{home.manifestoEyebrow && <p className="kicker">{home.manifestoEyebrow}</p>}<h2>{home.manifestoTitle}{home.manifestoAccent && <><br /><span>{home.manifestoAccent}</span></>}</h2></div>
       <div className="manifesto-copy"><p>{academy.description}</p><p>{home.manifestoCopy}</p><Link href="/about" className="text-link">About the academy<ArrowRight aria-hidden="true" /></Link></div>
     </section>
 
@@ -31,7 +31,7 @@ export default async function Home() {
     <section className="archive-feature"><div className="archive-sticky">
       <Image src={home.archiveImage} alt="Sri Vari Padalu Academy ensemble performing on stage" fill sizes="100vw" unoptimized />
       <div className="archive-shade" />
-      <div className="archive-copy section-shell"><p className="kicker">{home.archiveEyebrow}</p><h2>{home.archiveTitle}</h2><ButtonLink href="/gallery" secondary>See the performance archive</ButtonLink><ArchivePreview image={home.archiveImage} /></div>
+      <div className="archive-copy section-shell">{home.archiveEyebrow && <p className="kicker">{home.archiveEyebrow}</p>}<h2>{home.archiveTitle}</h2><ButtonLink href="/gallery" secondary>See the performance archive</ButtonLink><ArchivePreview image={home.archiveImage} /></div>
     </div></section>
 
     <section className="faculty-editorial section-shell">

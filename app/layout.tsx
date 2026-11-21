@@ -21,13 +21,13 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: "website",
       title: "Sri Vari Padalu Academy",
-      description: "Grace. Rhythm. Devotion.",
+      description: "Bharatanatyam, Kuchipudi and Carnatic music classes in West Marredpally, Secunderabad.",
       images: [{ url: "/academy/hero/hero-desktop.webp", width: 3200, height: 1800 }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Sri Vari Padalu Academy",
-      description: "Grace. Rhythm. Devotion.",
+      description: "Bharatanatyam, Kuchipudi and Carnatic music classes in West Marredpally, Secunderabad.",
       images: ["/academy/hero/hero-desktop.webp"],
     },
   };

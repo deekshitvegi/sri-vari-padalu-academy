@@ -38,8 +38,8 @@ export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallba
     <div className="discipline-inner section-shell">
       <div className="discipline-main">
         <div className="discipline-copy">
-          <p className="kicker">{eyebrow}</p>
-          <h1 id="academy-heading">{title}<span>{accent}</span></h1>
+          {eyebrow && <p className="kicker">{eyebrow}</p>}
+          <h1 id="academy-heading">{title}{accent && <span>{accent}</span>}</h1>
           <p className="discipline-intro">{copy}</p>
           {programs.length > 0 && <div className="discipline-tabs" role="tablist" aria-label="Choose a discipline">{programs.map((program, index) => <button key={program.id} ref={(node) => { tabs.current[index] = node; }} id={"discipline-tab-" + program.id} role="tab" aria-selected={active?.id === program.id} aria-controls="discipline-program-panel" tabIndex={active?.id === program.id ? 0 : -1} onClick={() => choose(index)} onKeyDown={(event) => {
             if (event.altKey || event.ctrlKey || event.metaKey) return;

@@ -22,7 +22,7 @@ function Header({ content }: { content: Pick<SiteContent, "header" | "navigation
 function Footer({ content }: { content: Pick<SiteContent, "academy" | "header" | "footer" | "navigation"> }) {
   const { academy, header, footer, navigation } = content;
   return <footer className="site-footer">
-    <div className="footer-hero"><div><p className="kicker">{footer.eyebrow}</p><h2>{footer.title}</h2></div><Link className="footer-action" href={footer.ctaHref}>{footer.ctaLabel}<ArrowUpRight aria-hidden="true" /></Link></div>
+    <div className="footer-hero"><div>{footer.eyebrow && <p className="kicker">{footer.eyebrow}</p>}<h2>{footer.title}</h2></div><Link className="footer-action" href={footer.ctaHref}>{footer.ctaLabel}<ArrowUpRight aria-hidden="true" /></Link></div>
     <div className="footer-grid">
       <div><Brand header={header} /><p>{academy.description}</p><div className="footer-socials"><a href={academy.instagram} target="_blank" rel="noreferrer" aria-label="Academy on Instagram"><Camera aria-hidden="true" /></a><a href={academy.youtube} target="_blank" rel="noreferrer" aria-label="Academy on YouTube"><Play aria-hidden="true" /></a></div></div>
       <div><span className="footer-label">{footer.exploreLabel}</span>{navigation.filter((item) => item.visible && item.href !== "/").map((item) => <Link key={item.id} href={item.href} target={item.external ? "_blank" : undefined} rel={item.external ? "noreferrer" : undefined}>{item.label}</Link>)}</div>

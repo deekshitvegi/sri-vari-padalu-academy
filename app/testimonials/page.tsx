@@ -6,7 +6,7 @@ import { getPublicSiteContent } from "../content-store";
 import { BuilderPage, managedPageFor } from "../components/page-builder-renderer";
 import { CTA, PageHero, SectionHeading } from "../components/ui";
 
-export const metadata: Metadata = { title: "Student Stories", description: "The learning journey at Sri Vari Padalu Academy, from first steps to performance." };
+export const metadata: Metadata = { title: "How we teach", description: "The three stages students move through at Sri Vari Padalu Academy, from first steps to performing on stage." };
 export const dynamic = "force-dynamic";
 const icons = { footprints: Footprints, music: Music2, sparkles: Sparkles };
 
