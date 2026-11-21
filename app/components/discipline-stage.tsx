@@ -61,5 +61,6 @@ export function DisciplineStage({ programs, eyebrow, title, accent, copy, fallba
         </figure>
       </div>
     </div>
+    <div className="temple-border" aria-hidden="true" />
   </section>;
 }

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { SiteFrame } from "./components/site-frame";
 import { getPublicSiteContent } from "./content-store";
+import "@fontsource/spectral/400.css";
+import "@fontsource/spectral/500.css";
+import "@fontsource/hind/400.css";
+import "@fontsource/hind/500.css";
+import "@fontsource/hind/600.css";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {

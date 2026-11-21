@@ -2,12 +2,12 @@
 .program-explorer .program-band { border: 0; text-align: left; transition: opacity 300ms, transform 300ms var(--ease); }
 .program-explorer .program-band[aria-selected="true"] { outline: 3px solid var(--cyan); outline-offset: 5px; }
 .program-band-label { position: relative; display: block; }
-.program-band-label small { display: block; margin-bottom: 12px; font-size: .72rem; color: #e7d9ca; }
-.program-band-label strong { font: 400 clamp(1.8rem,2.5vw,2.8rem)/1.1 var(--display); letter-spacing: -.025em; }
+.program-band-label small { display: block; margin-bottom: 8px; font-size: .85rem; color: var(--on-dark-muted); }
+.program-band-label strong { font: 500 clamp(1.8rem,2.5vw,2.6rem)/1.1 var(--display); letter-spacing: -.01em; }
 .program-explorer .program-band[aria-selected="true"] .program-arrow { color: var(--ink); background: var(--paper); }
 .program-explorer .program-band:hover .program-arrow { transform: none; }
 .program-explorer-detail { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10%; padding: 40px; margin-top: 32px; background: var(--paper); }
-.program-explorer-detail h3 { font: 400 clamp(1.8rem,3vw,2.5rem)/1.15 var(--display); margin: 0 0 20px; }
+.program-explorer-detail h3 { font: 500 clamp(1.7rem,2.6vw,2.2rem)/1.15 var(--display); margin: 0 0 16px; }
 .program-explorer-detail p:not(.kicker) { color: var(--muted); font-size: .9rem; }
 .program-explorer-detail .detail-label { margin: 0 0 16px; color: var(--ink); font-size: .85rem; font-weight: 600; }
 .program-explorer-detail ul { list-style: none; padding: 0; display: grid; gap: 16px; margin: 0 0 28px; }
@@ -28,16 +28,16 @@
 .faculty-answer p:not(.kicker) { color: var(--muted); font-size: .9rem; }
 .faculty-answer p:last-child { margin-bottom: 28px; }
 .faculty-disclosure[data-open="true"] .faculty-answer { grid-template-rows: 1fr; opacity: 1; }
-.archive-preview-button { display: flex; align-items: center; gap: 12px; color: #fff8ee; min-height: 48px; padding: 0; margin-top: 20px; border: 0; background: transparent; font-size: .8rem; }
+.archive-preview-button { display: flex; align-items: center; gap: 12px; color: var(--on-dark); min-height: 48px; padding: 0; margin-top: 20px; border: 0; background: transparent; font-size: .8rem; }
 .archive-preview-button svg { width: 18px; transition: transform 200ms; }
 .archive-preview-button:hover svg { transform: scale(1.2); }
 .archive-lightbox { color: var(--paper); }
 .home-class-schedule { margin-top: 28px; }
 .schedule-programs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); gap: 8px; }
 .schedule-programs button { padding: 10px 10px; min-height: 44px; border: 0; border-bottom: 2px solid transparent; font-size: .8rem; background: transparent; color: var(--muted); }
-.schedule-programs [aria-pressed="true"] { border-bottom-color: var(--cyan); color: var(--cyan); background: #eee1dc; }
+.schedule-programs [aria-pressed="true"] { border-bottom-color: var(--accent); color: var(--accent); background: #f5e4e1; }
 .schedule-day-choice { display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: .8rem; margin-top: 20px; }
-.schedule-day-choice select { padding: 8px 12px; min-height: 44px; border: 1px solid #c4b8ac; color: var(--ink); background: transparent; }
+.schedule-day-choice select { padding: 8px 12px; min-height: 44px; border: 1px solid #cdbfb3; color: var(--ink); background: transparent; }
 .schedule-result-count { color: var(--muted); font-size: .75rem; margin-block: 20px 12px; }
 .schedule-session-choices { display: grid; gap: 8px; }
 .schedule-session-choices > a { display: flex; align-items: center; gap: 16px; padding: 14px 16px; min-height: 72px; border: 1px solid var(--line); transition: border-color 180ms, background-color 180ms, transform 180ms; }
